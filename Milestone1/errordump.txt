@@ -40,3 +40,28 @@ Traceback (most recent call last):
   File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
     raise ProgramLoadError()
 ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-07 15:33:54
+Error Dump:
+Memory write error: Address 1331113482 is out of bounds.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 25, in loader
+    self.memory.write(loader_address,directives_code)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\mainmemory.py", line 16, in write
+    raise IndexError(f"Memory write error: Address {address} is out of bounds.")
+IndexError: Memory write error: Address 1331113482 is out of bounds.
+
+Error Timestamp: 2024-02-07 15:35:39
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
