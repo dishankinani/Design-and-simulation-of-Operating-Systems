@@ -1,0 +1,42 @@
+
+Error Timestamp: 2024-01-28 15:08:08
+Error Dump:
+[Errno 2] No such file or directory: 'kdsjn,d'
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 18, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'kdsjn,d'
+
+Error Timestamp: 2024-01-28 17:26:58
+Error Dump:
+Loader.loader() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 18, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Loader.loader() takes 1 positional argument but 2 were given
+
+Error Timestamp: 2024-01-28 17:28:14
+Error Dump:
+Loader.loader() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 18, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Loader.loader() takes 1 positional argument but 2 were given
+
+Error Timestamp: 2024-01-28 19:05:21
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 114, in start
+    self.run_command(command, args)
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in run_command
+    self.load_program(filename, verbose)
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
+    raise ProgramLoadError()
+ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
