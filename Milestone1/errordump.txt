@@ -77,3 +77,15 @@ Traceback (most recent call last):
   File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
     raise ProgramLoadError()
 ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-07 20:07:40
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 126, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 84, in run_command
+    self.load_program(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 24, in load_program
+    raise ProgramLoadError()
+ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.

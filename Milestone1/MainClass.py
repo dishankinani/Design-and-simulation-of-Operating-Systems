@@ -12,13 +12,9 @@ class VMShell:
     def __init__(self):
         self.memory = Memory()
         self.registers = Register()
-<<<<<<< Updated upstream
         self.registers.write('R2',2)
         self.registers.write('R3',3)
-=======
-        # self.registers.write('R2',10)
-        # self.registers.write('R3',5)
->>>>>>> Stashed changes
+
         self.cpu = None
         self.process_queue = queue.Queue()
 
