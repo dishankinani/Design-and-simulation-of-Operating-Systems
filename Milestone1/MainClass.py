@@ -1,8 +1,10 @@
+import queue
 from loader import Loader
 from register import Register
 from mainmemory import Memory
 from CPU import CPU
 import datetime
+from process_classes import pcb, process
 class ProgramLoadError(Exception):
     def __str__(self):
         return "Error: Cannot load a new program while another program is already ready to run at the same location."
@@ -10,9 +12,15 @@ class VMShell:
     def __init__(self):
         self.memory = Memory()
         self.registers = Register()
+<<<<<<< Updated upstream
         self.registers.write('R2',2)
         self.registers.write('R3',3)
+=======
+        # self.registers.write('R2',10)
+        # self.registers.write('R3',5)
+>>>>>>> Stashed changes
         self.cpu = None
+        self.process_queue = queue.Queue()
 
     def load_program(self, filename, verbose):
         if self.cpu and self.cpu.PC < self.cpu.b_size:
@@ -21,6 +29,8 @@ class VMShell:
         try:
             loader = Loader(filename, self.memory, verbose)
             b_size, PC, loader_address = loader.loader(verbose)
+            self.process_queue.put(process(loader_address, b_size))
+            
             self.cpu = CPU(self.memory, self.registers, loader_address, b_size, PC, verbose)
             if verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, PC: {PC}, Loader Address: {loader_address}")
@@ -71,14 +81,17 @@ class VMShell:
         verbose = "-v" in args
         if verbose:
             print(self.registers)
+            
         if command == "load":
             filename = args[0] if args else None
             if filename:
                 self.load_program(filename, verbose)
             else:
                 print("No filename provided for load command.")
+                
         elif command == "run":
             self.run_program(verbose)
+            
         elif command=="coredump":
             if verbose:
                 for i in range(1,601):
@@ -92,10 +105,13 @@ class VMShell:
                         if i % 6 == 0:
                             file.write('\n')
                     file.write(str(self.registers))
+                    
         elif command=="errordump":
             self.print_errordump()
+            
         elif command=="shell":
             self.start_new_instance()
+            
         else:
             print("Command Not Found")
         # Implement other commands like coredump, errordump

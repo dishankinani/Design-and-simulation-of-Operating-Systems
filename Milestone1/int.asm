@@ -1,4 +1,0 @@
-.WORD 1
-.WORD 2
-.WORD 3
-ADD R1 R2 R3
