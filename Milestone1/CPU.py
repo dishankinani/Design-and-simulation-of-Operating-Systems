@@ -6,6 +6,7 @@ class CPU:
         self.b_size=b_size
         self.verbose=verbose
         self.PC =PC   # Program Counter initialization
+        self.state = 'new'
 
     def fetch(self):
         instruction = []

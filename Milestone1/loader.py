@@ -1,16 +1,21 @@
 import struct
+from milestone1.MainClass import ProgramLoadError
 class Loader:
-    def __init__(self, file_path,memory,verbose):
-        self.file_path = file_path
+    def __init__(self,memory):
         self.memory=memory
-        self.verbose=verbose
+        self.loader_address_stack= [5]
 
-    def loader(self, verbose):
+    def loader(self, file_path, verbose):
         # Open the byte code file in binary mode
-        with open(self.file_path, 'rb') as file:
+        with open(file_path, 'rb') as file:
             reader=struct.Struct('B')
             # Read header information from the byte code file
             b_size, PC, loader_address = struct.unpack('iii', file.read(12))
+            if self.loader_address_stack[-1]<loader_address and loader_address+b_size < self.memory.size:
+                self.loader_address_stack.append(b_size + loader_address)
+            else:
+                raise ProgramLoadError()
+            
 
             # Display header information
             print(f'File Size{b_size}')
@@ -35,7 +40,7 @@ class Loader:
                 print(f"Instruction code {instruction_code}")
                 if instruction_code == 16:
                     #add
-                    if self.verbose:
+                    if verbose:
                         print('ADD instruction called\n')
                     self.memory.write(loader_address, instruction_code)
                     loader_address+=1
@@ -43,7 +48,7 @@ class Loader:
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
-                        if self.verbose:
+                        if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
                         PC += 1
@@ -56,7 +61,7 @@ class Loader:
                     
                 elif instruction_code == 17:
                     # subtract
-                    if self.verbose:
+                    if verbose:
                         print('SUB instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
@@ -64,7 +69,7 @@ class Loader:
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
-                        if self.verbose:
+                        if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
                         PC += 1
@@ -76,7 +81,7 @@ class Loader:
 
                 elif instruction_code == 18:
                     #multiply
-                    if self.verbose:
+                    if verbose:
                         print('MUL instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
@@ -84,7 +89,7 @@ class Loader:
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
-                        if self.verbose:
+                        if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
                         PC += 1
@@ -95,7 +100,7 @@ class Loader:
                 
                 elif instruction_code == 19:
                     #divide
-                    if self.verbose:
+                    if verbose:
                         print('DIVIDE instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
@@ -103,7 +108,7 @@ class Loader:
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
-                        if self.verbose:
+                        if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in self.memory at {loader_address}')
                         loader_address += 1
                         PC += 1
@@ -114,7 +119,7 @@ class Loader:
 
                 elif instruction_code == 22:
                     #move immediate
-                    if self.verbose:
+                    if verbose:
                         print('MVI Immediate instruction executed.\n')
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
@@ -136,7 +141,7 @@ class Loader:
 
                 elif instruction_code == 1: 
                     # Move data from one register to another
-                    if self.verbose:
+                    if verbose:
                         print('MOV instruction executed.\n')
 
                     # Storing the instruction code
@@ -163,7 +168,7 @@ class Loader:
 
                 elif instruction_code == 13:
                     #move immediate
-                    if self.verbose:
+                    if verbose:
                         print('AND instruction executed.\n')
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
@@ -184,7 +189,7 @@ class Loader:
 
                 elif instruction_code == 14:
                     #move immediate
-                    if self.verbose:
+                    if verbose:
                         print('OR operation instruction executed.\n')
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))

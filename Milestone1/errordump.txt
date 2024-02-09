@@ -40,3 +40,96 @@ Traceback (most recent call last):
   File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
     raise ProgramLoadError()
 ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-07 15:35:29
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-07 15:49:02
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 114, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in run_command
+    self.load_program(filename, verbose)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
+    raise ProgramLoadError()
+ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-09 10:02:55
+Error Dump:
+'Queue' object has no attribute 'append'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 22, in load_program
+    self.cpus.append(CPU(self.memory, self.registers, loader_address, b_size, PC, verbose))
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'Queue' object has no attribute 'append'
+
+Error Timestamp: 2024-02-09 10:04:26
+Error Dump:
+'Queue' object has no attribute 'append'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 22, in load_program
+    self.cpus.put(CPU(self.memory, self.registers, loader_address, b_size, PC, verbose))
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'Queue' object has no attribute 'append'
+
+Error Timestamp: 2024-02-09 10:15:35
+Error Dump:
+[WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 129, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 103, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 114, in osx
+    subprocess.run(command, check=True)
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+
+Error Timestamp: 2024-02-09 10:18:53
+Error Dump:
+[WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 131, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 103, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 114, in osx
+    subprocess.run(command, check=True)
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\disha\anaconda3\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+
+Error Timestamp: 2024-02-09 10:22:51
+Error Dump:
+VMShell.run_program() missing 1 required positional argument: 'verbose'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 130, in start
+    args = parts[1:]
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 82, in run_command
+    elif command == "run":
+        ^^^^^^^^^^^^^^^^^^^
+TypeError: VMShell.run_program() missing 1 required positional argument: 'verbose'

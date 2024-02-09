@@ -82,3 +82,63 @@ Traceback (most recent call last):
   File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
     raise ProgramLoadError()
 ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-09 09:38:06
+Error Dump:
+expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+Error Timestamp: 2024-02-09 09:48:14
+Error Dump:
+expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 25, in load_program
+    b_size, PC, loader_address = self.loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+Error Timestamp: 2024-02-09 09:59:36
+Error Dump:
+expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 25, in load_program
+    b_size, PC, loader_address = self.loader.loader (filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    # Read header information from the byte code file
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+Error Timestamp: 2024-02-09 10:00:08
+Error Dump:
+expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 25, in load_program
+    b_size, PC, loader_address = self.loader.loader (filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    # Read header information from the byte code file
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+Error Timestamp: 2024-02-09 10:00:17
+Error Dump:
+expected str, bytes or os.PathLike object, not NoneType
+Traceback (most recent call last):
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 25, in load_program
+    b_size, PC, loader_address = self.loader.loader (filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in loader
+    # Read header information from the byte code file
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not NoneType

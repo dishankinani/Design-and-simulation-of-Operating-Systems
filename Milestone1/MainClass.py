@@ -1,8 +1,10 @@
+import queue
 from loader import Loader
 from register import Register
 from mainmemory import Memory
 from CPU import CPU
 import datetime
+import subprocess
 class ProgramLoadError(Exception):
     def __str__(self):
         return "Error: Cannot load a new program while another program is already ready to run at the same location."
@@ -12,18 +14,20 @@ class VMShell:
         self.registers = Register()
         self.registers.write('R2',10)
         self.registers.write('R3',5)
-        self.cpu = None
+        self.loader = Loader(self.memory)
+        self.cpus = queue.Queue()
 
     def load_program(self, filename, verbose):
-        if self.cpu and self.cpu.PC < self.cpu.b_size:
-            print("Error: Another program is currently loaded and ready to run. Please reset or exit before loading a new program.")
-            raise ProgramLoadError()
         try:
-            loader = Loader(filename, self.memory, verbose)
-            b_size, PC, loader_address = loader.loader(verbose)
-            self.cpu = CPU(self.memory, self.registers, loader_address, b_size, PC, verbose)
+            b_size, PC, loader_address = self.loader.loader(filename, verbose)
+            self.cpus.put(CPU(self.memory, self.registers, loader_address, b_size, PC, verbose))
             if verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, PC: {PC}, Loader Address: {loader_address}")
+                print(f'{filename} status set to ready')
+            #changing cpu state to ready
+            new_cpu = self.cpus.get()
+            new_cpu.state = 'ready'
+            self.cpus.put(new_cpu)
         except ProgramLoadError as e:
             print(e)
             self.errordump(e)
@@ -32,9 +36,12 @@ class VMShell:
 
     def run_program(self, verbose):
         try:
-            if self.cpu:
-                self.cpu.execute_program()  # Assuming CPU has execute_program method
+            if not self.cpus.empty():
+                running = self.cpus.pop()
+                running.state = 'running'
+                running.execute_program()  # Assuming CPU has execute_program method
                 if verbose:
+                    print('process set to running')
                     print("Program executed.")
             else:
                 print("No program loaded.")
@@ -96,11 +103,26 @@ class VMShell:
             self.print_errordump()
         elif command=="shell":
             self.start_new_instance()
+        elif command=="osx":
+            filename = args[0] if args else None
+            if filename:
+                self.osx(filename, verbose)
+            else:
+                print("No filename provided for load command.")
         else:
             print("Command Not Found")
-        # Implement other commands like coredump, errordump
-        # ...
-
+        
+    def osx(self, filename, verbose):
+        load_address = self.loader.stack[-1] + 1
+        command = f'osx.exe {filename} {(load_address)}'
+        try:
+            subprocess.run(command, check=True)
+            if verbose:
+                print(f"OSX compiled .asm to .osx file.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error: {e}")
+            self.errordump(e)
+        
     def start(self):
         try:
             while True:
