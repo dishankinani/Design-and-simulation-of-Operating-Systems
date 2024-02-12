@@ -5,6 +5,8 @@ from mainmemory import Memory
 from CPU import CPU
 import datetime
 from process_classes import pcb, process
+import subprocess
+
 class ProgramLoadError(Exception):
     def __str__(self):
         return "Error: Cannot load a new program while another program is already ready to run at the same location."
@@ -72,6 +74,9 @@ class VMShell:
                 print(file.read())
         except FileNotFoundError:
             print("Error: errordump.txt not found.")
+            
+    
+        
 
     def run_command(self, command, args):
         verbose = "-v" in args
@@ -87,6 +92,18 @@ class VMShell:
                 
         elif command == "run":
             self.run_program(verbose)
+            
+        elif command=="osx":
+            if verbose:
+                print(f'compiling {args[0]}.asm to {args[0]}.osx')
+            #function call to compile .asm to .osx
+            filename = args[1] if args else None
+            load_address = input("Enter the load address: ")
+            command = f'test_cases/osx.exe {filename} {(load_address)}'
+            try:
+                subprocess.run(command, check=True)
+            except subprocess.CalledProcessError as e:
+                print(f"Error: {e}")
             
         elif command=="coredump":
             if verbose:

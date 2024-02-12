@@ -82,3 +82,148 @@ Traceback (most recent call last):
   File "c:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 20, in load_program
     raise ProgramLoadError()
 ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-02-07 16:46:40
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-07 19:11:05
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-07 19:11:10
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-07 19:11:38
+Error Dump:
+[Errno 2] No such file or directory: 'test_cases/int.osx'
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'test_cases/int.osx'
+
+Error Timestamp: 2024-02-07 19:12:09
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-08 17:50:25
+Error Dump:
+can only concatenate list (not "str") to list
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 143, in start
+    self.run_command(command, args)
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 102, in run_command
+    command = ['test_cases/osx.exe', filename] + load_address
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+TypeError: can only concatenate list (not "str") to list
+
+Error Timestamp: 2024-02-08 17:51:32
+Error Dump:
+expected str, bytes or os.PathLike object, not int
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 143, in start
+    self.run_command(command, args)
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 104, in run_command
+    subprocess.run(command, check=True)
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 1462, in _execute_child
+    args = list2cmdline(args)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 608, in list2cmdline
+    for arg in map(os.fsdecode, seq):
+  File "<frozen os>", line 824, in fsdecode
+TypeError: expected str, bytes or os.PathLike object, not int
+
+Error Timestamp: 2024-02-08 17:53:06
+Error Dump:
+can only concatenate list (not "int") to list
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 143, in start
+    self.run_command(command, args)
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 102, in run_command
+    command = ['test_cases/osx.exe', filename] + int(load_address)
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+TypeError: can only concatenate list (not "int") to list
+
+Error Timestamp: 2024-02-08 17:54:41
+Error Dump:
+[WinError 2] The system cannot find the file specified
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 143, in start
+    self.run_command(command, args)
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 104, in run_command
+    subprocess.run(command, check=True)
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "c:\Users\brade\anaconda3\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Error Timestamp: 2024-02-09 09:16:06
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 29, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 10, in loader
+    with open(self.file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-09 09:16:20
+Error Dump:
+ord() expected string of length 1, but int found
+Traceback (most recent call last):
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 29, in load_program
+    b_size, PC, loader_address = loader.loader(verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 26, in loader
+    directives_code = ord(byte)
+                      ^^^^^^^^^
+TypeError: ord() expected string of length 1, but int found

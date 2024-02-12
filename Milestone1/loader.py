@@ -19,11 +19,13 @@ class Loader:
             original_PC=PC
             original_loader_address=loader_address
 
-            for i in range(PC):
-                byte=file.read(1)
-                directives_code=ord(byte)
-                self.memory.write(loader_address,directives_code)
-                loader_address+=1
+            for i in range(PC, b_size, 6):
+                block = file.read(6)
+                for j in range(6):
+                    byte = block[j]
+                    directives_code = (byte)
+                    self.memory.write(loader_address, directives_code)
+                    loader_address += 1
 
             # file.read(PC)
             for i in range(PC,b_size,6):# do a for loop that increments by 6 for each command to the end of the file 
@@ -31,7 +33,7 @@ class Loader:
                 #print(i)
                 byte = file.read(1)
                 #change byte into number for function calls and readability
-                instruction_code = ord(byte)
+                instruction_code = (byte)
                 print(f"Instruction code {instruction_code}")
                 if instruction_code == 16:
                     #add

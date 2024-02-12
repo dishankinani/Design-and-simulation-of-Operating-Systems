@@ -5,7 +5,7 @@ class CPU:
         self.loader_address=loader_address
         self.b_size=b_size
         self.verbose=verbose
-        self.PC =PC   # Program Counter initialization
+        self.PC = PC   # Program Counter initialization
 
     def fetch(self):
         instruction = []
@@ -118,8 +118,8 @@ class CPU:
         print(f"The result after OR operation stored in Z register is {result}")
 
     def mvi(self, reg, imm):
-        imm_name = f'R{imm}'
-        self.registers.write(reg, imm_name)
+        #imm_name = f'R{imm}'
+        self.registers.write(reg, imm)
     
     def execute_program(self):
         while self.PC < self.b_size:
