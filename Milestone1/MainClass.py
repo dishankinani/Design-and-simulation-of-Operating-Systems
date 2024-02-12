@@ -12,8 +12,8 @@ class VMShell:
     def __init__(self):
         self.memory = Memory()
         self.registers = Register()
-        self.registers.write('R2',10)
-        self.registers.write('R3',5)
+        # self.registers.write('R2',10)   
+        # self.registers.write('R3',5)
         self.loader = Loader(self.memory)
         self.cpus = queue.Queue()
 

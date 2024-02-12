@@ -1,5 +1,5 @@
 import struct
-from milestone1.MainClass import ProgramLoadError
+from Milestone1.MainClass import ProgramLoadError
 class Loader:
     def __init__(self,memory):
         self.memory=memory
@@ -186,7 +186,7 @@ class Loader:
                     file.read(3)
                     loader_address+=3
                     PC+=3
-
+                
                 elif instruction_code == 14:
                     #move immediate
                     if verbose:
@@ -207,6 +207,26 @@ class Loader:
                     file.read(3)
                     loader_address+=3
                     PC+=3
+                    
+                elif instruction_code == 20:
+                    #move immediate
+                    if verbose:
+                        print('SWI operation called.\n')
+                    #storing instruction code
+                    self.memory.write(loader_address, ord(byte))
+                    loader_address+=1
+                    PC += 1
+                    # storing value
+                    # and 3 additional bytes
+                    for _ in range(4):
+                        self.memory.write(loader_address, ord(file.read(1)))
+                        loader_address+=1
+                        PC+=1
+                    
+                    
+                    file.read(1)
+                    loader_address+=1
+                    PC+=1
                     
 
         return b_size,original_PC,original_loader_address

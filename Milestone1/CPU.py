@@ -44,6 +44,9 @@ class CPU:
             self.and_op(destination, operand1)
         elif opcode == 14:
             self.or_op(destination, operand1)
+        elif opcode == 20:
+            #call SWI Class
+            print('to be implemented')
         else:
             print(f"Unknown opcode: {opcode}")
 
