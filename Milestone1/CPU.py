@@ -5,7 +5,7 @@ class CPU:
         self.loader_address=loader_address
         self.b_size=b_size
         self.verbose=verbose
-        self.PC =PC   # Program Counter initialization
+        self.PC = PC   # Program Counter initialization
         self.state = 'new'
 
     def fetch(self):
@@ -30,23 +30,32 @@ class CPU:
 
         if opcode == 16:  # opcode for ADD
             self.add(operand1, operand2, dest_reg)
+            self.PC += 1
         elif opcode == 1:
             self.mov(destination, operand1)
+            self.PC += 1
         elif opcode == 17:  # opcode for SUBTRACT
             self.subtract(operand1, operand2,dest_reg)
+            self.PC += 1
         elif opcode == 18:
             self.multiply(operand1,operand2,dest_reg)
+            self.PC += 1
         elif opcode == 19:
             self.divide(operand1,operand2,dest_reg)
+            self.PC += 1
         elif opcode == 22:
             self.mvi(dest_reg,operand1)
+            self.PC += 1
         elif opcode == 13:
-            self.and_op(destination, operand1)
+            self.and_operation(destination, operand1)
+            self.PC += 1
         elif opcode == 14:
-            self.or_op(destination, operand1)
+            self.or_operation(destination, operand1)
+            self.PC += 1
         elif opcode == 20:
             #call SWI Class
             print('to be implemented')
+            self.PC += 1
         else:
             print(f"Unknown opcode: {opcode}")
 

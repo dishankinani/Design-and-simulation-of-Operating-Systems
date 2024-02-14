@@ -38,7 +38,7 @@ class VMShell:
     def run_program(self, verbose):
         try:
             if not self.cpus.empty():
-                running = self.cpus.pop()
+                running = self.cpus.get()
                 running.state = 'running'
                 running.execute_program()  # Assuming CPU has execute_program method
                 if verbose:

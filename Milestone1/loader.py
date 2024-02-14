@@ -14,7 +14,7 @@ class Loader:
                 self.loader_address_stack.append(b_size + loader_address)
             else:
                 # from MainClass import ProgramLoadError
-                raise ProgramLoadError()
+                self.print_errordump('ProgramLoadError')
                 # raise ProgramLoadError()
             
 
@@ -45,19 +45,18 @@ class Loader:
                         print('ADD instruction called\n')
                     self.memory.write(loader_address, instruction_code)
                     loader_address+=1
-                    PC += 1
+                    
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
                         if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
-                        PC += 1
+                        
                     
                     file.read(2)
                     loader_address+=2
                     #print(f"Loader address after ADD {loader_address}")
-                    PC+=2
                     #print(f"PC after ADD {PC}")
                     
                 elif instruction_code == 17:
@@ -66,18 +65,17 @@ class Loader:
                         print('SUB instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
                         if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
-                        PC += 1
+                        
                     
                     file.read(2)
                     loader_address+=2
-                    PC+=2
 
 
                 elif instruction_code == 18:
@@ -86,18 +84,17 @@ class Loader:
                         print('MUL instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
                         if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in memory at {loader_address}')
                         loader_address += 1
-                        PC += 1
+                        
                     
                     file.read(2)
                     loader_address+=2
-                    PC+=2
                 
                 elif instruction_code == 19:
                     #divide
@@ -105,18 +102,17 @@ class Loader:
                         print('DIVIDE instruction called\n')
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
 
                     for _ in range(3):
                         self.memory.write(loader_address, ord(file.read(1)))
                         if verbose:
                             print(f'register {self.memory.read(loader_address)} stored in self.memory at {loader_address}')
                         loader_address += 1
-                        PC += 1
+                        
                     
                     file.read(2)
                     loader_address+=2
-                    PC+=2
 
                 elif instruction_code == 22:
                     #move immediate
@@ -125,20 +121,18 @@ class Loader:
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
                     #storing reg
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     #storing value
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     
                     file.read(3)
                     loader_address+=3
-                    PC+=3
-
 
                 elif instruction_code == 1: 
                     # Move data from one register to another
@@ -148,24 +142,23 @@ class Loader:
                     # Storing the instruction code
                     self.memory.write(loader_address, ord(byte))
                     loader_address += 1
-                    PC += 1
+                    
 
                     # Storing the source register
                     src_reg = ord(file.read(1))
                     self.memory.write(loader_address, src_reg)
                     loader_address += 1
-                    PC += 1
+                    
 
                     # Storing the destination register
                     dest_reg = ord(file.read(1))
                     self.memory.write(loader_address, dest_reg)
                     loader_address += 1
-                    PC += 1
+                    
 
                     # Handling unused bytes
                     file.read(3)
                     loader_address += 3
-                    PC += 3
 
                 elif instruction_code == 13:
                     #move immediate
@@ -174,19 +167,18 @@ class Loader:
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
                     #storing reg
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     #storing value
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     
                     file.read(3)
                     loader_address+=3
-                    PC+=3
                 
                 elif instruction_code == 14:
                     #move immediate
@@ -195,19 +187,18 @@ class Loader:
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
                     #storing reg
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     #storing value
                     self.memory.write(loader_address, ord(file.read(1)))
                     loader_address+=1
-                    PC+=1
+                    
                     
                     file.read(3)
                     loader_address+=3
-                    PC+=3
                     
                 elif instruction_code == 20:
                     #move immediate
@@ -216,18 +207,24 @@ class Loader:
                     #storing instruction code
                     self.memory.write(loader_address, ord(byte))
                     loader_address+=1
-                    PC += 1
+                    
                     # storing value
                     # and 3 additional bytes
                     for _ in range(4):
                         self.memory.write(loader_address, ord(file.read(1)))
                         loader_address+=1
-                        PC+=1
+                        
                     
                     
                     file.read(1)
                     loader_address+=1
-                    PC+=1
+                    
                     
 
         return b_size,original_PC,original_loader_address
+    def print_errordump(self, error):
+        try:
+            with open("errordump.txt", 'r') as file:
+                file.write(error)
+        except FileNotFoundError:
+            print("Error: errordump.txt not found.")
