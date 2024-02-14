@@ -133,3 +133,84 @@ Traceback (most recent call last):
     elif command == "run":
         ^^^^^^^^^^^^^^^^^^^
 TypeError: VMShell.run_program() missing 1 required positional argument: 'verbose'
+
+Error Timestamp: 2024-02-13 13:57:55
+Error Dump:
+'Loader' object has no attribute 'stack'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 136, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 109, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 116, in osx
+    load_address = self.loader.stack[-1] + 1
+                   ^^^^^^^^^^^^^^^^^
+AttributeError: 'Loader' object has no attribute 'stack'
+
+Error Timestamp: 2024-02-13 13:59:38
+Error Dump:
+'Loader' object has no attribute 'stack'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 136, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 109, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 116, in osx
+    load_address = self.loader.stack[-1] + 1
+                   ^^^^^^^^^^^^^^^^^
+AttributeError: 'Loader' object has no attribute 'stack'
+
+Error Timestamp: 2024-02-13 13:59:54
+Error Dump:
+[WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 136, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 109, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 119, in osx
+    subprocess.run(command, check=True)
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 216] This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information and then contact the software publisher
+
+Error Timestamp: 2024-02-13 14:01:37
+Error Dump:
+Command 'osx.exe int.asm 6' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 119, in osx
+    subprocess.run(command, check=True, shell=True)  # Add shell=True parameter
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'osx.exe int.asm 6' returned non-zero exit status 1.
+
+Error Timestamp: 2024-02-13 14:05:33
+Error Dump:
+expected str, bytes or os.PathLike object, not int
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 137, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 109, in run_command
+    self.osx(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 120, in osx
+    subprocess.run(brkt_command, check=False, shell=True)  # Add shell=True parameter
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 1462, in _execute_child
+    args = list2cmdline(args)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\subprocess.py", line 608, in list2cmdline
+    for arg in map(os.fsdecode, seq):
+  File "<frozen os>", line 824, in fsdecode
+TypeError: expected str, bytes or os.PathLike object, not int

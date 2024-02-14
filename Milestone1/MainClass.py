@@ -16,6 +16,7 @@ class VMShell:
         # self.registers.write('R3',5)
         self.loader = Loader(self.memory)
         self.cpus = queue.Queue()
+        self.clock = 0 # clock is used to keep track of instructions ran
 
     def load_program(self, filename, verbose):
         try:
@@ -113,10 +114,11 @@ class VMShell:
             print("Command Not Found")
         
     def osx(self, filename, verbose):
-        load_address = self.loader.stack[-1] + 1
-        command = f'osx.exe {filename} {(load_address)}'
+        load_address = str(self.loader.loader_address_stack[-1] + 1)
+        command = f'osx.exe {filename} {load_address}'
+        brkt_command = ['osx.exe', filename, load_address]
         try:
-            subprocess.run(command, check=True)
+            subprocess.run(command, check=False, shell=True)  # Add shell=True parameter
             if verbose:
                 print(f"OSX compiled .asm to .osx file.")
         except subprocess.CalledProcessError as e:
