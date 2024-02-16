@@ -37,7 +37,7 @@ class VMShell:
 
     def run_program(self, verbose):
         try:
-            if not self.cpus.empty():
+            while not self.cpus.empty():    
                 running = self.cpus.get()
                 running.state = 'running'
                 running.execute_program()  # Assuming CPU has execute_program method
@@ -87,6 +87,8 @@ class VMShell:
                 print("No filename provided for load command.")
         elif command == "run":
             self.run_program(verbose)
+        # elif command == "execute":
+        #     self.run 
         elif command=="coredump":
             if verbose:
                 for i in range(1,601):

@@ -10,7 +10,7 @@ class Register:
             'R4': 0,
             'R5': 0,
             'SP': 0,  # Stack Pointer
-            'FP': 0,  # Frame Pointer
+            'CLOCK': 0,  # Frame Pointer
             'PC': 0,  # Program Counter
             'SWI': 0, # Software Interrupt
             'Z': 0,   # Zero Flag

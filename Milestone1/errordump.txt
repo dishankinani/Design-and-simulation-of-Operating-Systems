@@ -227,3 +227,35 @@ Traceback (most recent call last):
   File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 228, in print_errordump
     file.write(error)
 io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 11:13:47
+Error Dump:
+unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 43, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 147, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 34, in execute
+    self.add(operand1, operand2, dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 67, in add
+    result = value1 + value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+
+Error Timestamp: 2024-02-16 11:17:54
+Error Dump:
+unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 43, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 147, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 34, in execute
+    self.add(operand1, operand2, dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 67, in add
+    result = value1 + value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'NoneType'

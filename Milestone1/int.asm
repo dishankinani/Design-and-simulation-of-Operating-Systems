@@ -2,3 +2,4 @@
 .WORD 2
 .WORD 3
 ADD R1 R2 R3
+SWI 0

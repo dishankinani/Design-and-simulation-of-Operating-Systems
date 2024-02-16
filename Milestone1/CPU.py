@@ -16,7 +16,7 @@ class CPU:
             instruction.append(self.memory.read(self.loader_address+self.PC))
             print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.PC}")
             self.registers.increment('PC')  # Increment PC for each byte read
-            print(f"After incrementing PC {self.PC}" )
+            print(f"After incrementing PC {self.registers.read('PC')}" )
         return instruction
     
     def decode(self, instruction):
@@ -141,6 +141,11 @@ class CPU:
             print(f"PC from CPU {self.PC}")
             print(f"b_size from CPU {self.b_size}")
             instruction = self.fetch()
+            if instruction[0] == '0':
+                #jump to IO queue
+                print('todo')
             self.execute(instruction)
+            self.registers.increment('CLOCK')
+            
 
         
