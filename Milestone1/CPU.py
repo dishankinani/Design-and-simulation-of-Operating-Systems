@@ -1,3 +1,4 @@
+from SWI import SWI
 class CPU:
     def __init__(self, memory, registers,loader_address,b_size, PC, verbose, arrival_time=0):
         self.memory = memory
@@ -13,8 +14,8 @@ class CPU:
     def fetch(self):
         instruction = []
         for _ in range(6):  # Fetch 6 bytes individually
-            instruction.append(self.memory.read(self.loader_address+self.PC))
-            print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.PC}")
+            instruction.append(self.memory.read(self.loader_address+self.registers.read('PC')))
+            print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.registers.read('PC')}")
             self.registers.increment('PC')  # Increment PC for each byte read
             print(f"After incrementing PC {self.registers.read('PC')}" )
         return instruction
@@ -28,36 +29,30 @@ class CPU:
 
     def execute(self, instruction):
         opcode, destination, operand1, operand2= self.decode(instruction)
+        print(f"Opcode of the instruction being executed {opcode}")
         dest_reg = f'R{destination}'
 
         if opcode == 16:  # opcode for ADD
             self.add(operand1, operand2, dest_reg)
-            self.registers.increment('PC')
         elif opcode == 1:
             self.mov(destination, operand1)
-            self.registers.increment('PC')
         elif opcode == 17:  # opcode for SUBTRACT
             self.subtract(operand1, operand2,dest_reg)
-            self.registers.increment('PC')
         elif opcode == 18:
             self.multiply(operand1,operand2,dest_reg)
-            self.registers.increment('PC')
         elif opcode == 19:
             self.divide(operand1,operand2,dest_reg)
-            self.registers.increment('PC')
         elif opcode == 22:
             self.mvi(dest_reg,operand1)
-            self.registers.increment('PC')
         elif opcode == 13:
             self.and_operation(destination, operand1)
-            self.registers.increment('PC')
         elif opcode == 14:
             self.or_operation(destination, operand1)
-            self.registers.increment('PC')
         elif opcode == 20:
             #call SWI Class
-            print('to be implemented')
-            self.registers.increment('PC')
+            swi1=SWI(self.memory,self.registers,self.loader_address,self.b_size,self.registers.read('PC'),self.verbose)
+            swi1.executeSWI(destination)
+
         else:
             print(f"Unknown opcode: {opcode}")
 
@@ -137,8 +132,8 @@ class CPU:
         self.registers.write(reg, imm_name)
     
     def execute_program(self):
-        while self.PC < self.b_size:
-            print(f"PC from CPU {self.PC}")
+        while self.registers.read('PC') < self.b_size:
+            print(f"PC from CPU {self.registers.read('PC')}")
             print(f"b_size from CPU {self.b_size}")
             instruction = self.fetch()
             if instruction[0] == '0':

@@ -259,3 +259,36 @@ Traceback (most recent call last):
     result = value1 + value2
              ~~~~~~~^~~~~~~~
 TypeError: unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+
+Error Timestamp: 2024-02-16 11:27:07
+Error Dump:
+unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 43, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 147, in execute_program
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 34, in execute
+    self.add(operand1, operand2, dest_reg)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 67, in add
+    result = value1 + value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'NoneType'
+
+Error Timestamp: 2024-02-16 11:34:02
+Error Dump:
+Memory read error: Address 10000 is out of bounds.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 43, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 143, in execute_program
+    instruction = self.fetch()
+                  ^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 16, in fetch
+    instruction.append(self.memory.read(self.loader_address+self.registers.read('PC')))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\mainmemory.py", line 10, in read
+    raise IndexError(f"Memory read error: Address {address} is out of bounds.")
+IndexError: Memory read error: Address 10000 is out of bounds.
