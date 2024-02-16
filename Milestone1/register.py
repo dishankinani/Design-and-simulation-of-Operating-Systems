@@ -30,3 +30,7 @@ class Register:
     def __str__(self):
         """ String representation for debugging """
         return str(self.registers)
+    
+    def increment(self, reg_name):
+        self.registers[reg_name] += 1
+

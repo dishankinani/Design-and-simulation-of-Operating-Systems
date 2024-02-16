@@ -10,17 +10,21 @@ class SWI:
     def executeSWI(self,code):
         # code = self.registers.read('SWI')
         if code==0:
+            # get input from keyboard
             self.input_stuff()
         elif code==1:
+            # print to screen
             self.output_stuff()
         elif code==2:
+            # throw error
             self.standard_error()
 
     def input_stuff(self):
-        print('todo')
+       value1 = input('Please give an integer value (value will be stored in R2):')
+       self.registers.write('R2', value1)
 
     def output_stuff(self):
-        print(f'Values in the register R1 is {self.registers.read('R1')}')
+        print(f'Values in the register R1 is {self.registers.read("R1")}')
 
     def standard_error(self):
         print('todo')

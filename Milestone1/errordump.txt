@@ -214,3 +214,16 @@ Traceback (most recent call last):
     for arg in map(os.fsdecode, seq):
   File "<frozen os>", line 824, in fsdecode
 TypeError: expected str, bytes or os.PathLike object, not int
+
+Error Timestamp: 2024-02-14 15:42:04
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
