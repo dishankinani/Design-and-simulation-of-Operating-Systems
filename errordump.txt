@@ -142,3 +142,27 @@ Traceback (most recent call last):
     # Read header information from the byte code file
      ^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+Error Timestamp: 2024-02-16 13:44:06
+Error Dump:
+[Errno 2] No such file or directory: 'int.osx'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 9, in loader
+    with open(file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int.osx'
+
+Error Timestamp: 2024-02-16 13:44:21
+Error Dump:
+[Errno 2] No such file or directory: 'int1.osx'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 9, in loader
+    with open(file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'int1.osx'

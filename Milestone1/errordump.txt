@@ -292,3 +292,366 @@ Traceback (most recent call last):
   File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\mainmemory.py", line 10, in read
     raise IndexError(f"Memory read error: Address {address} is out of bounds.")
 IndexError: Memory read error: Address 10000 is out of bounds.
+
+Error Timestamp: 2024-02-16 13:20:56
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 13:33:01
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 13:33:31
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 43, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 142, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 40, in execute
+    self.subtract(operand1, operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 72, in subtract
+    result = value1 - value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 13:33:42
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 13:34:36
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 13:46:35
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 44, in run_program
+    running.execute_program()  # Assuming CPU has execute_program method
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 141, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 39, in execute
+    self.subtract(operand1, operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 71, in subtract
+    result = value1 - value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 13:47:59
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 14:06:03
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 14:06:38
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 14:07:24
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 14:21:35
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, PC, loader_address = self.loader.loader(filename, verbose)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print_errordump('ProgramLoadError')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 14:21:50
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 47, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 146, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 41, in execute
+    self.subtract(operand1, operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 73, in subtract
+    result = value1 - value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 14:29:45
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 47, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 146, in execute_program
+    print('todo')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 41, in execute
+    elif opcode == 17:  # opcode for SUBTRACT
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 73, in subtract
+    value2 = self.registers.read(f'R{operand2}')
+             ^^^^^^^^^^^^^^^
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 14:30:28
+Error Dump:
+'VMShell' object has no attribute 're'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    print(self.re)
+          ^^^^^^^
+AttributeError: 'VMShell' object has no attribute 're'
+
+Error Timestamp: 2024-02-16 14:30:32
+Error Dump:
+'VMShell' object has no attribute 're'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 26, in load_program
+    print(self.re)
+          ^^^^^^^
+AttributeError: 'VMShell' object has no attribute 're'
+
+Error Timestamp: 2024-02-16 14:36:22
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 147, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 42, in execute
+    self.subtract(operand1, operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 74, in subtract
+    result = value1 - value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 14:37:09
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 152, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 118, in run_command
+    if args[1]:
+       ~~~~^^^
+IndexError: list index out of range
+
+Error Timestamp: 2024-02-16 14:37:38
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 152, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 118, in run_command
+    if args[1]:
+       ~~~~^^^
+IndexError: list index out of range
+
+Error Timestamp: 2024-02-16 14:38:20
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 152, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 118, in run_command
+    if args[1]:
+       ~~~~^^^
+IndexError: list index out of range
+
+Error Timestamp: 2024-02-16 14:39:51
+Error Dump:
+unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 147, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 42, in execute
+    self.subtract(operand1, operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 74, in subtract
+    result = value1 - value2
+             ~~~~~~~^~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+Error Timestamp: 2024-02-16 14:57:11
+Error Dump:
+Memory read error: Address 10000 is out of bounds.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 145, in execute_program
+    instruction = self.fetch()
+                  ^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 18, in fetch
+    instruction.append(self.memory.read(self.loader_address+self.current_instruction_address))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\mainmemory.py", line 10, in read
+    raise IndexError(f"Memory read error: Address {address} is out of bounds.")
+IndexError: Memory read error: Address 10000 is out of bounds.
+
+Error Timestamp: 2024-02-16 14:58:09
+Error Dump:
+can't multiply sequence by non-int of type 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 149, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 46, in execute
+    self.multiply(operand1,operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 87, in multiply
+    result = value1 * value2
+             ~~~~~~~^~~~~~~~
+TypeError: can't multiply sequence by non-int of type 'str'
+
+Error Timestamp: 2024-02-16 15:02:10
+Error Dump:
+not writable
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 17, in loader
+    self.print('loader class err')
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 228, in print_errordump
+    file.write(error)
+io.UnsupportedOperation: not writable
+
+Error Timestamp: 2024-02-16 15:03:16
+Error Dump:
+can't multiply sequence by non-int of type 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 149, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 46, in execute
+    self.multiply(operand1,operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 87, in multiply
+    result = value1 * value2
+             ~~~~~~~^~~~~~~~
+TypeError: can't multiply sequence by non-int of type 'str'
+
+Error Timestamp: 2024-02-16 15:06:02
+Error Dump:
+Memory write error: Address 1331113482 is out of bounds.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 23, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 31, in loader
+    self.memory.write(loader_address,directives_code)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\mainmemory.py", line 16, in write
+    raise IndexError(f"Memory write error: Address {address} is out of bounds.")
+IndexError: Memory write error: Address 1331113482 is out of bounds.
+
+Error Timestamp: 2024-02-16 15:06:08
+Error Dump:
+can't multiply sequence by non-int of type 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 149, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 46, in execute
+    self.multiply(operand1,operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 87, in multiply
+    result = value1 * value2
+             ~~~~~~~^~~~~~~~
+TypeError: can't multiply sequence by non-int of type 'str'
+
+Error Timestamp: 2024-02-16 15:06:57
+Error Dump:
+can't multiply sequence by non-int of type 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 149, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 46, in execute
+    self.multiply(operand1,operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 87, in multiply
+    result = value1 * value2
+             ~~~~~~~^~~~~~~~
+TypeError: can't multiply sequence by non-int of type 'str'

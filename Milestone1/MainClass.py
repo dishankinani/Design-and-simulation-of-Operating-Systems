@@ -20,15 +20,18 @@ class VMShell:
 
     def load_program(self, filename, verbose):
         try:
-            b_size, PC, loader_address = self.loader.loader(filename, verbose)
-            self.cpus.put(CPU(self.memory, self.registers, loader_address, b_size, PC, verbose))
+            b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
+            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose)
+            self.registers.write('PC', first_instruction_address)
+            #print(self.re)
             if verbose:
-                print(f"Loaded {filename} into memory. Byte Size: {b_size}, PC: {PC}, Loader Address: {loader_address}")
+                print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {loader_address+ first_instruction_address}, Loader Address: {loader_address}")
                 print(f'{filename} status set to ready')
             #changing cpu state to ready
-            new_cpu = self.cpus.get()
             new_cpu.state = 'ready'
             self.cpus.put(new_cpu)
+            print(list(self.cpus.queue))
+            
         except ProgramLoadError as e:
             print(e)
             self.errordump(e)
@@ -37,10 +40,13 @@ class VMShell:
 
     def run_program(self, verbose):
         try:
-            while not self.cpus.empty():    
+            while not self.cpus.empty():
+                print(list(self.cpus.queue))
                 running = self.cpus.get()
+                print(running)
                 running.state = 'running'
-                running.execute_program()  # Assuming CPU has execute_program method
+                running.execute_program()
+                print("skjhfkjshfkjhifhdijfbdkjfhkjdfghdfgkhdfkjghdkjghkjdfhgjhdfkjgkj")  # Assuming CPU has execute_program method
                 if verbose:
                     print('process set to running')
                     print("Program executed.")
@@ -109,16 +115,22 @@ class VMShell:
         elif command=="osx":
             filename = args[0] if args else None
             if filename:
-                self.osx(filename, verbose)
+                if args[1]:
+                    self.osx(filename, verbose, args[1])
+                else:
+                    self.osx(filename, verbose)
             else:
                 print("No filename provided for load command.")
         else:
             print("Command Not Found")
         
-    def osx(self, filename, verbose):
-        load_address = str(self.loader.loader_address_stack[-1] + 1)
+    def osx(self, filename, verbose, loader_address=0):
+        if loader_address != 0:
+            load_address = loader_address
+        else:
+            load_address = str(self.loader.loader_address_stack[-1] + 1)
         command = f'osx.exe {filename} {load_address}'
-        brkt_command = ['osx.exe', filename, load_address]
+        #brkt_command = ['osx.exe', filename, load_address]
         try:
             subprocess.run(command, check=False, shell=True)  # Add shell=True parameter
             if verbose:
