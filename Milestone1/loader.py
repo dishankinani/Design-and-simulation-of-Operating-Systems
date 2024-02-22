@@ -14,7 +14,7 @@ class Loader:
                 self.loader_address_stack.append(b_size + loader_address)
             else:
                 # from MainClass import ProgramLoadError
-                self.print_errordump('ProgramLoadError')
+                print('loader class err')
                 # raise ProgramLoadError()
             
 

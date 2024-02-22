@@ -1,23 +1,26 @@
 from SWI import SWI
+import copy
 class CPU:
-    def __init__(self, memory, registers,loader_address,b_size, PC, verbose, arrival_time=0):
+    def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, arrival_time=0):
         self.memory = memory
         self.registers = registers
         self.loader_address=loader_address
         self.b_size=b_size
         self.verbose=verbose
-        self.PC = PC   # Program Counter initialization
         self.state = 'new'
-        self.registers.write('PC',PC)
+        self.current_instruction_address = first_instruction_address
+        #self.registers.write('PC',PC)
         self.arrival_time = arrival_time
 
     def fetch(self):
         instruction = []
         for _ in range(6):  # Fetch 6 bytes individually
-            instruction.append(self.memory.read(self.loader_address+self.registers.read('PC')))
-            print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.registers.read('PC')}")
-            self.registers.increment('PC')  # Increment PC for each byte read
-            print(f"After incrementing PC {self.registers.read('PC')}" )
+            instruction.append(self.memory.read(self.loader_address+self.current_instruction_address))
+            if self.verbose:
+                print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.current_instruction_address}")
+            self.current_instruction_address+=1  # Increment PC for each byte read
+            if self.verbose:
+                print(f"After incrementing instruction address {self.current_instruction_address}" )
         return instruction
     
     def decode(self, instruction):
@@ -52,9 +55,11 @@ class CPU:
             #call SWI Class
             swi1=SWI(self.memory,self.registers,self.loader_address,self.b_size,self.registers.read('PC'),self.verbose)
             swi1.executeSWI(destination)
-
+        
         else:
             print(f"Unknown opcode: {opcode}")
+        self.registers.increment('CLOCK')
+        
 
     def add(self, operand1, operand2, dest_reg):
         value1 = self.registers.read(f'R{operand1}')
@@ -132,13 +137,16 @@ class CPU:
         self.registers.write(reg, imm_name)
     
     def execute_program(self):
-        while self.registers.read('PC') < self.b_size:
-            print(f"PC from CPU {self.registers.read('PC')}")
+        print(f"Binary File size is {self.b_size}")
+        print(f"loader address is {self.loader_address}")
+
+        while self.current_instruction_address < self.b_size:
+            print(f"PC from CPU {self.current_instruction_address + self.loader_address}")
             print(f"b_size from CPU {self.b_size}")
             instruction = self.fetch()
-            if instruction[0] == '0':
+            if instruction[0] == '20':
                 #jump to IO queue
-                print('todo')
+                print('jump to IO queueu todo')
             self.execute(instruction)
             self.registers.increment('CLOCK')
             
