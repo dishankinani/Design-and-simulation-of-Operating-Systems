@@ -121,6 +121,15 @@ class VMShell:
                     self.osx(filename, verbose)
             else:
                 print("No filename provided for load command.")
+        elif command=="execute":
+            for i in len(args):
+                #FCFS scheduling
+                self.load_program(i, verbose)
+                arrival_time = args[i+1]
+                self.run_program(verbose)
+                i+=1
+            
+                
         else:
             print("Command Not Found")
         

@@ -655,3 +655,17 @@ Traceback (most recent call last):
     result = value1 * value2
              ~~~~~~~^~~~~~~~
 TypeError: can't multiply sequence by non-int of type 'str'
+
+Error Timestamp: 2024-02-21 10:49:12
+Error Dump:
+can't multiply sequence by non-int of type 'str'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 48, in run_program
+    running.execute_program()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 150, in execute_program
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 45, in execute
+    self.multiply(operand1,operand2,dest_reg)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 88, in multiply
+    result = value1 * value2
+TypeError: can't multiply sequence by non-int of type 'str'

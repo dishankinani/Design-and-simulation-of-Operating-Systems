@@ -3,7 +3,7 @@ import copy
 class CPU:
     def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, arrival_time=0):
         self.memory = memory
-        self.registers = (registers)
+        self.registers = registers
         self.loader_address=loader_address
         self.b_size=b_size
         self.verbose=verbose
@@ -20,7 +20,7 @@ class CPU:
                 print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.current_instruction_address}")
             self.current_instruction_address+=1  # Increment PC for each byte read
             if self.verbose:
-                print(f"After incrementing PC {self.current_instruction_address}" )
+                print(f"After incrementing instruction address {self.current_instruction_address}" )
         return instruction
     
     def decode(self, instruction):
