@@ -16,6 +16,7 @@ class VMShell:
         # self.registers.write('R3',5)
         self.loader = Loader(self.memory)
         self.cpus = queue.Queue()
+        self.arriavl_times = []
         self.clock = 0 # clock is used to keep track of instructions ran
 
     def load_program(self, filename, verbose):
@@ -41,17 +42,18 @@ class VMShell:
     def run_program(self, verbose):
         try:
             while not self.cpus.empty():
-                print(list(self.cpus.queue))
+                #print(list(self.cpus.queue))
                 running = self.cpus.get()
-                print(running)
+                #print(running)
                 running.state = 'running'
                 running.execute_program()
-                print("skjhfkjshfkjhifhdijfbdkjfhkjdfghdfgkhdfkjghdkjghkjdfhgjhdfkjgkj")  # Assuming CPU has execute_program method
                 if verbose:
                     print('process set to running')
                     print("Program executed.")
+                # remove program from memory
+                self.memory.clear(running.loader_address, running.b_size)
             else:
-                print("No program loaded.")
+                print("End of Programs")
         except Exception as e:
             self.errordump(e)
 
@@ -122,12 +124,18 @@ class VMShell:
             else:
                 print("No filename provided for load command.")
         elif command=="execute":
-            for i in len(args):
-                #FCFS scheduling
-                self.load_program(i, verbose)
-                arrival_time = args[i+1]
+            for i in range(0,len(args),2):
+                if args[i] == "-v":
+                    break
+                if verbose:
+                    print('Program name: ', args[i])
+                    print('arrival time: ', args[i+1])
+                # #FCFS scheduling
+                self.load_program(args[i], verbose)
+                self.arriavl_times.append(args[i+1])
                 self.run_program(verbose)
-                i+=1
+            print(self.arriavl_times)
+                
             
                 
         else:

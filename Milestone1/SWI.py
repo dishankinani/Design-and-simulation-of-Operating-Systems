@@ -21,7 +21,7 @@ class SWI:
 
     def input_stuff(self):
        value1 = input('Please give an integer value (value will be stored in R2):')
-       self.registers.write('R2', value1)
+       self.registers.write('R2', int(value1))
 
     def output_stuff(self):
         print(f'Values in the register R1 is {self.registers.read("R1")}')
