@@ -87,8 +87,6 @@ class VMShell:
                 print("No filename provided for load command.")
         elif command == "run":
             self.run_program(verbose)
-        # elif command == "execute":
-        #     self.run 
         elif command=="coredump":
             if verbose:
                 for i in range(1,601):
