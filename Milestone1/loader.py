@@ -1,4 +1,5 @@
 import struct
+from ProgramLoadError import ProgramLoadError
 class Loader:
     def __init__(self,memory):
         self.memory=memory
@@ -13,9 +14,8 @@ class Loader:
             if self.loader_address_stack[-1]<loader_address and loader_address+b_size < self.memory.size:
                 self.loader_address_stack.append(b_size + loader_address)
             else:
-                # from MainClass import ProgramLoadError
-                print('loader class err')
-                # raise ProgramLoadError()
+                # print('loader class err')
+                raise ProgramLoadError()
             
 
             # Display header information

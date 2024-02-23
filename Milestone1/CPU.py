@@ -41,15 +41,15 @@ class CPU:
             self.mov(destination, operand1)
         elif opcode == 17:  # opcode for SUBTRACT
             self.subtract(operand1, operand2,dest_reg)
-        elif opcode == 18:
+        elif opcode == 18: # Multiply
             self.multiply(operand1,operand2,dest_reg)
-        elif opcode == 19:
+        elif opcode == 19: # Divide
             self.divide(operand1,operand2,dest_reg)
-        elif opcode == 22:
+        elif opcode == 22: # Move immedate
             self.mvi(dest_reg,operand1)
-        elif opcode == 13:
+        elif opcode == 13: 
             self.and_operation(destination, operand1)
-        elif opcode == 14:
+        elif opcode == 14: 
             self.or_operation(destination, operand1)
         elif opcode == 20:
             #call SWI Class
@@ -149,6 +149,11 @@ class CPU:
                 print('jump to IO queueu todo')
             self.execute(instruction)
             self.registers.increment('CLOCK')
+        
+        self.memory.clear(self.loader_address, self.b_size+self.loader_address)
+        self.state = 'terminated'
+        if self.verbose:
+            print("Program terminated.")
             
 
         
