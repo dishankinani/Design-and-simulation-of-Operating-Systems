@@ -14,3 +14,9 @@ class Memory:
             self.memory[address] = value
         else:
             raise IndexError(f"Memory write error: Address {address} is out of bounds.")
+        
+    def clear(self, address, program_size):
+        # Clear the memory from the loader address to the end of the program
+        for i in range(address,program_size):
+            self.memory[i] = 0
+        
