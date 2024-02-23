@@ -1,0 +1,30 @@
+
+Error Timestamp: 2024-02-23 11:43:33
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 169, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 116, in run_command
+    if args[1]:
+IndexError: list index out of range
+
+Error Timestamp: 2024-02-23 11:45:41
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 169, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 116, in run_command
+    if args[1]:
+IndexError: list index out of range
+
+Error Timestamp: 2024-02-23 11:57:19
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 22, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 18, in loader
+    raise ProgramLoadError()
+ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
