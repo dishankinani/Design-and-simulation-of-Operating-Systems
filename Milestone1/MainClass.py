@@ -5,9 +5,7 @@ from mainmemory import Memory
 from CPU import CPU
 import datetime
 import subprocess
-class ProgramLoadError(Exception):
-    def __str__(self):
-        return "Error: Cannot load a new program while another program is already ready to run at the same location."
+from ProgramLoadError import ProgramLoadError
 class VMShell:
     def __init__(self):
         self.memory = Memory()
@@ -31,11 +29,7 @@ class VMShell:
             #changing cpu state to ready
             new_cpu.state = 'ready'
             self.cpus.put(new_cpu)
-            print(list(self.cpus.queue))
-            
-        except ProgramLoadError as e:
-            print(e)
-            self.errordump(e)
+            # print(list(self.cpus.queue)) testing the queue
         except Exception as e:
             self.errordump(e)
 
@@ -51,7 +45,8 @@ class VMShell:
                     print('process set to running')
                     print("Program executed.")
                 # remove program from memory
-                self.memory.clear(running.loader_address, running.b_size)
+                """moved to CPU execute_program method"""
+                #self.memory.clear(running.loader_address, running.b_size)
             else:
                 print("End of Programs")
         except Exception as e:
@@ -132,7 +127,11 @@ class VMShell:
                     print('arrival time: ', args[i+1])
                 # #FCFS scheduling
                 self.load_program(args[i], verbose)
-                self.arriavl_times.append(args[i+1])
+                try:
+                    self.arriavl_times.append(args[i+1])
+                except:
+                    self.arriavl_times.append(0)
+                    
                 self.run_program(verbose)
             print(self.arriavl_times)
                 
