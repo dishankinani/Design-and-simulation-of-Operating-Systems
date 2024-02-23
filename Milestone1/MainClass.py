@@ -29,7 +29,8 @@ class VMShell:
             #changing cpu state to ready
             new_cpu.state = 'ready'
             self.cpus.put(new_cpu)
-            # print(list(self.cpus.queue)) testing the queue
+            if verbose:
+                print(list(self.cpus.queue)) #testing the queue/ ganntt chart
         except Exception as e:
             self.errordump(e)
 

@@ -12,7 +12,7 @@ class Register:
             'SP': 0,  # Stack Pointer
             'CLOCK': 0,  # Frame Pointer
             'PC': 0,  # Program Counter
-            'SWI': 0, # Software Interrupt
+            'Modebit': 0, # 0 for user mode, 1 for kernel mode
             'Z': 0,   # Zero Flag
         }
 

@@ -1,5 +1,6 @@
 from SWI import SWI
 import copy
+from pcb import PCB
 class CPU:
     def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, arrival_time=0):
         self.memory = memory
@@ -53,8 +54,12 @@ class CPU:
             self.or_operation(destination, operand1)
         elif opcode == 20:
             #call SWI Class
+            
+            process_pcb= PCB(self.registers,self.current_instruction_address,self.loader_address,self.b_size,self.arrival_time)
+            self.state = 'waiting'
             swi1=SWI(self.memory,self.registers,self.loader_address,self.b_size,self.registers.read('PC'),self.verbose)
             swi1.executeSWI(destination)
+            self.state = 'ready'
         
         else:
             print(f"Unknown opcode: {opcode}")
