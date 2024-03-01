@@ -43,3 +43,14 @@ Traceback (most recent call last):
     self.registers.set('SWI',1)
     ^^^^^^^^^^^^^^^^^^
 AttributeError: 'Register' object has no attribute 'set'
+
+Error Timestamp: 2024-03-01 12:27:24
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 26, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 18, in loader
+    raise ProgramLoadError()
+ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.

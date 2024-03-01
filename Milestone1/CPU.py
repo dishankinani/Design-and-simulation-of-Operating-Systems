@@ -2,7 +2,7 @@ from SWI import SWI
 import copy
 from pcb import PCB
 class CPU:
-    def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, arrival_time=0):
+    def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, pid = None, arrival_time=0):
         self.memory = memory
         self.registers = registers
         self.loader_address=loader_address
@@ -12,6 +12,7 @@ class CPU:
         self.current_instruction_address = first_instruction_address
         #self.registers.write('PC',PC)
         self.arrival_time = arrival_time
+        self.pid = pid
 
     def fetch(self):
         instruction = []
@@ -35,7 +36,7 @@ class CPU:
         opcode, destination, operand1, operand2= self.decode(instruction)
         print(f"Opcode of the instruction being executed {opcode}")
         dest_reg = f'R{destination}'
-
+    
         if opcode == 16:  # opcode for ADD
             self.add(operand1, operand2, dest_reg)
         elif opcode == 1:
@@ -153,9 +154,11 @@ class CPU:
                 #jump to IO queue
                 print('jump to IO queueu todo')
             self.execute(instruction)
+            self.registers.gantt.append(self.pid)
             self.registers.increment('CLOCK')
         
         self.memory.clear(self.loader_address, self.b_size+self.loader_address)
+        self.registers.clear()
         self.state = 'terminated'
         if self.verbose:
             print("Program terminated.")

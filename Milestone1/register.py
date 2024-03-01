@@ -15,6 +15,7 @@ class Register:
             'Modebit': 0, # 0 for user mode, 1 for kernel mode
             'Z': 0,   # Zero Flag
         }
+        self.gantt = []
 
     def read(self, reg_name):
         """ Read the value from a register """
@@ -34,3 +35,13 @@ class Register:
     def increment(self, reg_name):
         self.registers[reg_name] += 1
 
+    def clear(self):
+        """ Clear all non-persistent registers """
+        self.write('R0', 0)
+        self.write('R1', 0)
+        self.write('R2', 0)
+        self.write('R3', 0)
+        self.write('R4', 0)
+        self.write('R5', 0)
+        self.write('SP', 0)
+        self.write('Z', 0)

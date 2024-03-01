@@ -14,13 +14,17 @@ class VMShell:
         # self.registers.write('R3',5)
         self.loader = Loader(self.memory)
         self.cpus = queue.Queue()
+        self.new= queue.Queue()
+        self.ready=queue.Queue()
+        self.terminated=queue.Queue()
+        self.wait=queue.Queue()
         self.arriavl_times = []
         self.clock = 0 # clock is used to keep track of instructions ran
 
-    def load_program(self, filename, verbose):
+    def load_program(self, filename, verbose, pid=None):
         try:
             b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose)
+            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose, pid)
             self.registers.write('PC', first_instruction_address)
             #print(self.re)
             if verbose:
@@ -37,17 +41,24 @@ class VMShell:
     def run_program(self, verbose):
         try:
             while not self.cpus.empty():
+                
                 #print(list(self.cpus.queue))
                 running = self.cpus.get()
                 #print(running)
                 running.state = 'running'
+                '''
+                Round robin here
+                '''
+                
                 running.execute_program()
                 if verbose:
                     print('process set to running')
                     print("Program executed.")
-                # remove program from memory
-                """moved to CPU execute_program method"""
-                #self.memory.clear(running.loader_address, running.b_size)
+                    
+                if running.state == 'terminated':
+                    self.terminated.put(self.ready.get())
+                    self.print_queues()
+                    # del running    
             else:
                 print("End of Programs")
         except Exception as e:
@@ -78,6 +89,9 @@ class VMShell:
                 print(file.read())
         except FileNotFoundError:
             print("Error: errordump.txt not found.")
+
+    def print_gantt(self):
+        print(self.registers.gantt)
 
     def run_command(self, command, args):
         verbose = "-v" in args
@@ -118,6 +132,7 @@ class VMShell:
             else:
                 print("No filename provided for load command.")
         elif command=="execute":
+            pid = 1
             for i in range(0,len(args),2):
                 if args[i] == "-v":
                     break
@@ -125,17 +140,22 @@ class VMShell:
                     print('Program name: ', args[i])
                     print('arrival time: ', args[i+1])
                 # #FCFS scheduling
-                self.load_program(args[i], verbose)
+                self.new.put(pid)
+                self.print_queues()
+                self.load_program(args[i], verbose,pid)
+                self.ready.put(self.new.get())
+                self.print_queues()
+                pid+=1
                 try:
                     self.arriavl_times.append(args[i+1])
                 except:
                     self.arriavl_times.append(0)
-                    
-                self.run_program(verbose)
+            self.print_queues()     
+            self.run_program(verbose)
+            self.print_queues()
             print(self.arriavl_times)
-                
-            
-                
+        elif command=="gantt":
+            self.print_gantt()        
         else:
             print("Command Not Found")
         
@@ -153,6 +173,16 @@ class VMShell:
         except subprocess.CalledProcessError as e:
             print(f"Error: {e}")
             self.errordump(e)
+
+    def print_queues(self):
+        # print(list(self.cpus.queue))
+        print('-----------------------------------')
+        print(f'New queue: {list(self.new.queue)}')
+        print(f'Ready Queue: {list(self.ready.queue)}')
+        print(f'Wait Queue: {list(self.wait.queue)}')
+        print(f'Terminated Queue{list(self.terminated.queue)}')
+        # print(self.arriavl_times)
+        print('-----------------------------------')
         
     def start(self):
         try:
