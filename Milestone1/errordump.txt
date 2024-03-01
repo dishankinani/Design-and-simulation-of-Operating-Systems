@@ -28,3 +28,18 @@ Traceback (most recent call last):
   File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 18, in loader
     raise ProgramLoadError()
 ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-03-01 11:54:37
+Error Dump:
+'Register' object has no attribute 'set'
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 44, in run_program
+    running.execute_program()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 155, in execute_program
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 61, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\SWI.py", line 12, in executeSWI
+    self.registers.set('SWI',1)
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'Register' object has no attribute 'set'

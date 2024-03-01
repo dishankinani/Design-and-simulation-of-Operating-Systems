@@ -9,7 +9,7 @@ class SWI:
 
     def executeSWI(self,code):
         # code = self.registers.read('SWI')
-        self.registers.set('SWI',1)
+        #self.registers.set('SWI',1)
         if code==0:
             # get input from keyboard
             self.input_stuff()
@@ -19,7 +19,7 @@ class SWI:
         elif code==2:
             # throw error
             self.standard_error()
-        self.registers.set('SWI',0)
+        #self.registers.set('SWI',0)
 
     def input_stuff(self):
        value1 = input('Please give an integer value (value will be stored in R2):')
