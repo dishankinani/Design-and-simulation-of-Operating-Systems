@@ -1,3 +1,4 @@
+from collections import deque
 import queue
 from loader import Loader
 from register import Register
@@ -16,15 +17,16 @@ class VMShell:
         self.cpus = queue.Queue()
         self.new= queue.Queue()
         self.ready=queue.Queue()
-        self.terminated=queue.Queue()
+        self.terminated=[]
         self.wait=queue.Queue()
         self.arriavl_times = []
         self.clock = 0 # clock is used to keep track of instructions ran
+        self.quantum = 8
 
-    def load_program(self, filename, verbose, pid=None):
+    def load_program(self, filename, arrival_time, verbose, pid=None):
         try:
             b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose, pid)
+            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose, pid=pid, arrival_time = arrival_time)
             self.registers.write('PC', first_instruction_address)
             #print(self.re)
             if verbose:
@@ -46,17 +48,14 @@ class VMShell:
                 running = self.cpus.get()
                 #print(running)
                 running.state = 'running'
-                '''
-                Round robin here
-                '''
-                
+               
                 running.execute_program()
                 if verbose:
                     print('process set to running')
                     print("Program executed.")
                     
                 if running.state == 'terminated':
-                    self.terminated.put(self.ready.get())
+                    self.terminated.append(self.ready.get())
                     self.print_queues()
                     # del running    
             else:
@@ -64,6 +63,57 @@ class VMShell:
         except Exception as e:
             self.errordump(e)
 
+    def round_robin(self):
+        
+        # sorted_queue = sorted(self.ready.queue, key=lambda obj: obj.arrival_time)
+        # for obj in sorted_queue:
+        #     self.ready.put(obj)
+        # self.cpus = queue.Queue(sorted_queue) # type: ignore
+        # self.ready = queue.Queue() # double ended queue for quick access to both sides
+        while not self.cpus.empty() or not self.ready.empty():
+            print(self.registers.read('CLOCK'))
+            if not self.cpus.empty() and self.cpus.queue[0].arrival_time <= self.registers.read('CLOCK'):
+                #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                self.ready.put(self.cpus.get())
+                # removes first pid from ready queue
+                # # self.ready.get()
+            if self.ready.empty():
+                for x in range(self.quantum):
+                    #print(f"Quantum:::::::::::::::::::::::::::   {x}")
+                    self.registers.increment('CLOCK')
+                    self.registers.gantt.append('X')
+            
+            
+
+            if not self.ready.empty():
+                running = self.ready.get()
+                for x in range(self.quantum):
+                    #print(f"Quantum:::::::::::::::::::::::::::   {x}")
+                    if running.state == 'terminated':
+                        print(".")
+                        if running.pid not in self.terminated:
+                            self.terminated.append(running.pid)
+                        self.registers.gantt.append('X')
+                        self.registers.increment('CLOCK')
+                        # not sure whether needed or not
+                        # del running
+                        continue
+                    running.execute_single_instruction()
+                    # self.registers.increment('CLOCK')
+                    self.registers.gantt.append(running.pid)
+                if running.state != 'terminated':
+                    '''
+                    implement pcb saving here
+                    '''
+                    self.ready.put(running)
+            
+                
+                
+            
+        # except Exception as e:
+        #     self.errordump(e)
+        # pass
+            
     def start_new_instance(self):
         print("Starting a new VMShell instance...")
         new_shell = VMShell()
@@ -100,7 +150,7 @@ class VMShell:
         if command == "load":
             filename = args[0] if args else None
             if filename:
-                self.load_program(filename, verbose)
+                self.load_program(filename,0, verbose)
             else:
                 print("No filename provided for load command.")
         elif command == "run":
@@ -150,8 +200,27 @@ class VMShell:
                     self.arriavl_times.append(args[i+1])
                 except:
                     self.arriavl_times.append(0)
+        elif command=="rr":
+            pid = 1
+            for i in range(0,len(args),2):
+                if args[i] == "-v":
+                    break
+                if verbose:
+                    print('Program name: ', args[i])
+                    print('arrival time: ', args[i+1])
+                # #FCFS scheduling
+                self.new.put(pid)
+                self.print_queues()
+                self.load_program(args[i],args[i+1], verbose,pid)
+                # self.ready.put(self.new.get())
+                self.print_queues()
+                pid+=1
+                try:
+                    self.arriavl_times.append(args[i+1])
+                except:
+                    self.arriavl_times.append(0)
             self.print_queues()     
-            self.run_program(verbose)
+            self.round_robin()
             self.print_queues()
             print(self.arriavl_times)
         elif command=="gantt":
@@ -177,10 +246,10 @@ class VMShell:
     def print_queues(self):
         # print(list(self.cpus.queue))
         print('-----------------------------------')
-        print(f'New queue: {list(self.new.queue)}')
+        print(f'New queue: {list(self.cpus.queue)}')
         print(f'Ready Queue: {list(self.ready.queue)}')
         print(f'Wait Queue: {list(self.wait.queue)}')
-        print(f'Terminated Queue{list(self.terminated.queue)}')
+        print(f'Terminated Queue{(self.terminated)}')
         # print(self.arriavl_times)
         print('-----------------------------------')
         
@@ -211,5 +280,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

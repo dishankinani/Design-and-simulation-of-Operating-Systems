@@ -11,7 +11,7 @@ class CPU:
         self.state = 'new'
         self.current_instruction_address = first_instruction_address
         #self.registers.write('PC',PC)
-        self.arrival_time = arrival_time
+        self.arrival_time = int(arrival_time)
         self.pid = pid
 
     def fetch(self):
@@ -143,8 +143,9 @@ class CPU:
         self.registers.write(reg, imm_name)
     
     def execute_program(self):
-        print(f"Binary File size is {self.b_size}")
-        print(f"loader address is {self.loader_address}")
+        if self.verbose:
+            print(f"Binary File size is {self.b_size}")
+            print(f"loader address is {self.loader_address}")
 
         while self.current_instruction_address < self.b_size:
             print(f"PC from CPU {self.current_instruction_address + self.loader_address}")
@@ -152,7 +153,7 @@ class CPU:
             instruction = self.fetch()
             if instruction[0] == '20':
                 #jump to IO queue
-                print('jump to IO queueu todo')
+                print('jump to IO queue todo')
             self.execute(instruction)
             self.registers.gantt.append(self.pid)
             self.registers.increment('CLOCK')
@@ -162,6 +163,16 @@ class CPU:
         self.state = 'terminated'
         if self.verbose:
             print("Program terminated.")
+            
+    def execute_single_instruction(self):
+        instruction = self.fetch()
+        self.execute(instruction)
+        if self.current_instruction_address >= self.b_size:
+            self.memory.clear(self.loader_address, self.b_size+self.loader_address)
+            self.registers.clear()
+            self.state = 'terminated'
+            if self.verbose:
+                print("Program terminated.")
             
 
         
