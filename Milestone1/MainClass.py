@@ -24,11 +24,12 @@ class VMShell:
         self.quantum = 8
         self.verbose=False
         self.arrival_program_dict={}
+        self.pid=1
 
-    def load_program(self, filename, arrival_time, pid=None):
+    def load_program(self, filename, arrival_time):
         try:
             b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, self.verbose, pid=pid, arrival_time = arrival_time)
+            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, self.verbose, pid=self.pid, arrival_time = arrival_time)
             self.registers.write('PC', first_instruction_address)
             #print(self.re)
             if self.verbose:
@@ -74,15 +75,6 @@ class VMShell:
         # self.ready = queue.Queue() # double ended queue for quick access to both sides
         while not self.cpus.empty() or not self.ready.empty() or self.arriavl_times:
 
-            if self.arriavl_times:
-                if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-                    #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
-                    program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
-                    self.load_program(program_name,self.arriavl_times[0])
-                    del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
-                    self.ready.put(self.cpus.get())
-                    # removes first pid from ready queue
-                    # # self.ready.get()
             if self.ready.empty():
                 for x in range(self.quantum):
                     self.registers.increment('CLOCK')
@@ -103,6 +95,16 @@ class VMShell:
                     self.registers.gantt.append(running.pid)
                 if running.state == 'terminated':
                     self.loader.remove_loader_address(running.loader_address,running.b_size)
+                if self.arriavl_times:
+                    while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') :
+                        #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                        program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                        self.load_program(program_name,self.arriavl_times[0])
+                        self.pid+=1
+                        del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                        self.ready.put(self.cpus.get())
+                        # removes first pid from ready queue
+                        # # self.ready.get()
                 if running.state != 'terminated':
                     '''
                     implement pcb saving here
@@ -148,7 +150,7 @@ class VMShell:
         if command == "load":
             filename = args[0] if args else None
             if filename:
-                self.load_program(filename,0, self.verbose)
+                self.load_program(filename,0)
             else:
                 print("No filename provided for load command.")
         elif command == "run":
@@ -190,7 +192,7 @@ class VMShell:
                 # #FCFS scheduling
                 self.new.put(pid)
                 self.print_queues()
-                self.load_program(args[i], self.verbose,pid)
+                self.load_program(args[i], self.verbose)
                 self.ready.put(self.new.get())
                 self.print_queues()
                 pid+=1
@@ -200,8 +202,7 @@ class VMShell:
                     self.arriavl_times.append(0)
         elif command=="rr":
             self.registers.clear()
-            pid = 1
-            
+            self.registers.clear_gantt()
             for i in range(0,len(args),2):
                 if args[i] == "-v":
                     break
@@ -209,24 +210,23 @@ class VMShell:
                     print('Program name: ', args[i])
                     print('arrival time: ', args[i+1])
                 # #FCFS scheduling
-                self.new.put(pid)
+                self.new.put(self.pid)
                 #self.print_queues()
-
                 program_name = args[i]
                 arrival_time = args[i + 1]
-
                 if i==0:
-                    self.load_program(args[i],args[i+1],pid)
+                    self.load_program(args[i],args[i+1])
                     self.ready.put(self.cpus.get())
                 else:
                     self.arrival_program_dict[arrival_time] = program_name
                 #self.print_queues()
-                pid+=1
+                self.pid+=1
                 try:
                     if i!=0:
                         self.arriavl_times.append(int(args[i+1]))
                 except:
-                    self.arriavl_times.append(0)      
+                    self.arriavl_times.append(0)
+            self.arriavl_times.sort()      
             print(self.arriavl_times)
             print(self.arrival_program_dict)
             #self.print_queues()     

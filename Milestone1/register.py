@@ -46,3 +46,7 @@ class Register:
         self.write('SP', 0)
         self.write('Z', 0)
         self.write('CLOCK',0)
+    
+    def clear_gantt(self):
+        "Clears Gantt Chart"
+        self.gantt.clear()

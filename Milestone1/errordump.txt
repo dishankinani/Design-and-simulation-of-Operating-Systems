@@ -481,3 +481,29 @@ Traceback (most recent call last):
     if self.arriavl_times[0] <= self.registers.read('CLOCK'):
        ~~~~~~~~~~~~~~~~~~^^^
 IndexError: list index out of range
+
+Error Timestamp: 2024-03-14 23:48:35
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 276, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 234, in run_command
+    self.round_robin()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 99, in round_robin
+    while self.arriavl_times[0] <= self.registers.read('CLOCK'):
+          ~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+Error Timestamp: 2024-03-14 23:51:54
+Error Dump:
+list index out of range
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 276, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 234, in run_command
+    self.round_robin()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 99, in round_robin
+    while self.arriavl_times[0] <= self.registers.read('CLOCK') and self.arriavl_times:
+          ~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
