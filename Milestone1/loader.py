@@ -5,19 +5,36 @@ class Loader:
         self.memory=memory
         self.loader_address_stack= [5]
 
+    def remove_loader_address(self,loader_address,b_size):
+        print(f"Loader address+b_size from remove method: {loader_address+b_size}")
+        self.loader_address_stack.remove(loader_address+b_size)
+
     def loader(self, file_path, verbose):
         # Open the byte code file in binary mode
         with open(file_path, 'rb') as file:
             reader=struct.Struct('B')
             # Read header information from the byte code file
             b_size, PC, loader_address = struct.unpack('iii', file.read(12))
-            if self.loader_address_stack[-1]<loader_address and loader_address+b_size < self.memory.size:
-                self.loader_address_stack.append(b_size + loader_address)
-            else:
-                # print('loader class err')
+            if b_size+loader_address in self.loader_address_stack:
                 raise ProgramLoadError()
             
+            else:
+                if len(self.loader_address_stack) == 1:
+                    if  b_size + loader_address < self.loader_address_stack[0]:
+                        self.loader_address_stack.insert(0, b_size + loader_address )
+                    elif b_size + loader_address  > self.loader_address_stack[0]:
+                        self.loader_address_stack.append(b_size + loader_address )
+                else:
+                    index = len(self.loader_address_stack)
+                    for i in range(len(self.loader_address_stack) - 1, -1, -1):
+                        if self.loader_address_stack[i] > loader_address:
+                            if self.loader_address_stack[i]>loader_address+b_size:
+                                index = i
+                        else:
+                            break
+                    self.loader_address_stack.insert(index, loader_address+b_size) 
 
+            
             # Display header information
             print(f'File Size{b_size}')
             print(f'Program Counter{PC}')
@@ -219,8 +236,6 @@ class Loader:
                     file.read(1)
                     loader_address+=1
                     
-                    
-
         return b_size,original_PC,original_loader_address
     def print_errordump(self, error):
         try:

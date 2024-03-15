@@ -45,3 +45,4 @@ class Register:
         self.write('R5', 0)
         self.write('SP', 0)
         self.write('Z', 0)
+        self.write('CLOCK',0)

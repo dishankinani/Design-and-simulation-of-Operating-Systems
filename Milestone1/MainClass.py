@@ -22,25 +22,27 @@ class VMShell:
         self.arriavl_times = []
         self.clock = 0 # clock is used to keep track of instructions ran
         self.quantum = 8
+        self.verbose=False
+        self.arrival_program_dict={}
 
-    def load_program(self, filename, arrival_time, verbose, pid=None):
+    def load_program(self, filename, arrival_time, pid=None):
         try:
-            b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, verbose, pid=pid, arrival_time = arrival_time)
+            b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
+            new_cpu = CPU(self.memory, self.registers, loader_address, b_size, first_instruction_address, self.verbose, pid=pid, arrival_time = arrival_time)
             self.registers.write('PC', first_instruction_address)
             #print(self.re)
-            if verbose:
+            if self.verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {loader_address+ first_instruction_address}, Loader Address: {loader_address}")
                 print(f'{filename} status set to ready')
             #changing cpu state to ready
             new_cpu.state = 'ready'
             self.cpus.put(new_cpu)
-            if verbose:
+            if self.verbose:
                 print(list(self.cpus.queue)) #testing the queue/ ganntt chart
         except Exception as e:
             self.errordump(e)
 
-    def run_program(self, verbose):
+    def run_program(self):
         try:
             while not self.cpus.empty():
                 
@@ -50,7 +52,7 @@ class VMShell:
                 running.state = 'running'
                
                 running.execute_program()
-                if verbose:
+                if self.verbose:
                     print('process set to running')
                     print("Program executed.")
                     
@@ -70,27 +72,26 @@ class VMShell:
         #     self.ready.put(obj)
         # self.cpus = queue.Queue(sorted_queue) # type: ignore
         # self.ready = queue.Queue() # double ended queue for quick access to both sides
-        while not self.cpus.empty() or not self.ready.empty():
-            print(self.registers.read('CLOCK'))
-            if not self.cpus.empty() and self.cpus.queue[0].arrival_time <= self.registers.read('CLOCK'):
-                #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
-                self.ready.put(self.cpus.get())
-                # removes first pid from ready queue
-                # # self.ready.get()
+        while not self.cpus.empty() or not self.ready.empty() or self.arriavl_times:
+
+            if self.arriavl_times:
+                if self.arriavl_times[0] <= self.registers.read('CLOCK'):
+                    #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                    program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                    self.load_program(program_name,self.arriavl_times[0])
+                    del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                    self.ready.put(self.cpus.get())
+                    # removes first pid from ready queue
+                    # # self.ready.get()
             if self.ready.empty():
                 for x in range(self.quantum):
-                    #print(f"Quantum:::::::::::::::::::::::::::   {x}")
                     self.registers.increment('CLOCK')
                     self.registers.gantt.append('X')
             
-            
-
             if not self.ready.empty():
                 running = self.ready.get()
                 for x in range(self.quantum):
-                    #print(f"Quantum:::::::::::::::::::::::::::   {x}")
                     if running.state == 'terminated':
-                        print(".")
                         if running.pid not in self.terminated:
                             self.terminated.append(running.pid)
                         self.registers.gantt.append('X')
@@ -99,21 +100,18 @@ class VMShell:
                         # del running
                         continue
                     running.execute_single_instruction()
-                    # self.registers.increment('CLOCK')
                     self.registers.gantt.append(running.pid)
+                if running.state == 'terminated':
+                    self.loader.remove_loader_address(running.loader_address,running.b_size)
                 if running.state != 'terminated':
                     '''
                     implement pcb saving here
                     '''
                     self.ready.put(running)
-            
-                
-                
-            
         # except Exception as e:
         #     self.errordump(e)
         # pass
-            
+
     def start_new_instance(self):
         print("Starting a new VMShell instance...")
         new_shell = VMShell()
@@ -144,19 +142,19 @@ class VMShell:
         print(self.registers.gantt)
 
     def run_command(self, command, args):
-        verbose = "-v" in args
-        if verbose:
+        self.verbose = "-v" in args
+        if self.verbose:
             print(self.registers)
         if command == "load":
             filename = args[0] if args else None
             if filename:
-                self.load_program(filename,0, verbose)
+                self.load_program(filename,0, self.verbose)
             else:
                 print("No filename provided for load command.")
         elif command == "run":
-            self.run_program(verbose)
+            self.run_program()
         elif command=="coredump":
-            if verbose:
+            if self.verbose:
                 for i in range(1,601):
                     print(self.memory.read(i),end=' ')
                     if i % 6 == 0:
@@ -176,9 +174,9 @@ class VMShell:
             filename = args[0] if args else None
             if filename:
                 if args[1]:
-                    self.osx(filename, verbose, args[1])
+                    self.osx(filename, args[1])
                 else:
-                    self.osx(filename, verbose)
+                    self.osx(filename)
             else:
                 print("No filename provided for load command.")
         elif command=="execute":
@@ -186,49 +184,60 @@ class VMShell:
             for i in range(0,len(args),2):
                 if args[i] == "-v":
                     break
-                if verbose:
+                if self.verbose:
                     print('Program name: ', args[i])
                     print('arrival time: ', args[i+1])
                 # #FCFS scheduling
                 self.new.put(pid)
                 self.print_queues()
-                self.load_program(args[i], verbose,pid)
+                self.load_program(args[i], self.verbose,pid)
                 self.ready.put(self.new.get())
                 self.print_queues()
                 pid+=1
                 try:
-                    self.arriavl_times.append(args[i+1])
+                    self.arriavl_times.append(int(args[i+1]))
                 except:
                     self.arriavl_times.append(0)
         elif command=="rr":
+            self.registers.clear()
             pid = 1
+            
             for i in range(0,len(args),2):
                 if args[i] == "-v":
                     break
-                if verbose:
+                if self.verbose:
                     print('Program name: ', args[i])
                     print('arrival time: ', args[i+1])
                 # #FCFS scheduling
                 self.new.put(pid)
-                self.print_queues()
-                self.load_program(args[i],args[i+1], verbose,pid)
-                # self.ready.put(self.new.get())
-                self.print_queues()
+                #self.print_queues()
+
+                program_name = args[i]
+                arrival_time = args[i + 1]
+
+                if i==0:
+                    self.load_program(args[i],args[i+1],pid)
+                    self.ready.put(self.cpus.get())
+                else:
+                    self.arrival_program_dict[arrival_time] = program_name
+                #self.print_queues()
                 pid+=1
                 try:
-                    self.arriavl_times.append(args[i+1])
+                    if i!=0:
+                        self.arriavl_times.append(int(args[i+1]))
                 except:
-                    self.arriavl_times.append(0)
-            self.print_queues()     
-            self.round_robin()
-            self.print_queues()
+                    self.arriavl_times.append(0)      
             print(self.arriavl_times)
+            print(self.arrival_program_dict)
+            #self.print_queues()     
+            self.round_robin()
+            #self.print_queues()
         elif command=="gantt":
             self.print_gantt()        
         else:
             print("Command Not Found")
         
-    def osx(self, filename, verbose, loader_address=0):
+    def osx(self, filename, loader_address=0):
         if loader_address != 0:
             load_address = loader_address
         else:
@@ -237,7 +246,7 @@ class VMShell:
         #brkt_command = ['osx.exe', filename, load_address]
         try:
             subprocess.run(command, check=False, shell=True)  # Add shell=True parameter
-            if verbose:
+            if self.verbose:
                 print(f"OSX compiled .asm to .osx file.")
         except subprocess.CalledProcessError as e:
             print(f"Error: {e}")
