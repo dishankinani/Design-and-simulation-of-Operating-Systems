@@ -13,6 +13,7 @@ class CPU:
         #self.registers.write('PC',PC)
         self.arrival_time = int(arrival_time)
         self.pid = pid
+        self.local_registers = copy.deepcopy(self.registers)
 
     def fetch(self):
         instruction = []
@@ -173,6 +174,19 @@ class CPU:
             self.state = 'terminated'
             if self.verbose:
                 print("Program terminated.")
-            
 
+        
+    def copy_registers(self):
+        self.local_registers = copy.deepcopy(self.registers)
+        
+    def restore_registers(self):
+        self.registers.write('R0', self.local_registers.read('R0'))
+        self.registers.write('R1', self.local_registers.read('R1'))
+        self.registers.write('R2', self.local_registers.read('R2'))
+        self.registers.write('R3', self.local_registers.read('R3'))
+        self.registers.write('R4', self.local_registers.read('R4'))
+        self.registers.write('R5', self.local_registers.read('R5'))
+        self.registers.write('SP', self.local_registers.read('SP'))
+        self.registers.write('Z', self.local_registers.read('Z'))
+        
         
