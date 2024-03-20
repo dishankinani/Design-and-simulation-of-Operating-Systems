@@ -1,4 +1,3 @@
-from collections import deque
 import queue
 from loader import Loader
 from register import Register
@@ -16,15 +15,20 @@ class VMShell:
         self.loader = Loader(self.memory)
         self.cpus = queue.Queue()
         self.new= queue.Queue()
-        self.ready=queue.Queue()
+        self.ready = queue.Queue()
+        self.ready1 = queue.Queue()
+        self.fcfs_queue = queue.Queue()
         self.terminated=[]
         self.wait=queue.Queue()
         self.arriavl_times = []
         self.clock = 0 # clock is used to keep track of instructions ran
         self.quantum = 8
+        self.quantum2 = 16
         self.verbose=False
         self.arrival_program_dict={}
         self.pid=1
+        self.Sched="FCFS"
+        
 
     def load_program(self, filename, arrival_time):
         try:
@@ -82,6 +86,7 @@ class VMShell:
             
             if not self.ready.empty():
                 running = self.ready.get()
+                running.restore_registers()
                 for x in range(self.quantum):
                     if running.state == 'terminated':
                         if running.pid not in self.terminated:
@@ -105,15 +110,47 @@ class VMShell:
                         self.ready.put(self.cpus.get())
                         # removes first pid from ready queue
                         # # self.ready.get()
-                if running.state != 'terminated':
-                    '''
-                    implement pcb saving here
-                    '''
+                if running.state != 'terminated': 
+                    running.copy_registers()
                     self.ready.put(running)
         # except Exception as e:
         #     self.errordump(e)
         # pass
-
+        
+    def mfq(self):
+        while not self.cpus.empty() or not self.ready.empty() or not self.ready1.empty() or not self.fcfs_queue.empty():
+            
+            self.alternate_roundrobin(quantums = 4, queue = self.ready)
+            self.alternate_roundrobin(quantums = 2, queue = self.ready1)
+            self.alternate_roundrobin(quantums = 1, queue = self.fcfs_queue)
+        pass
+    
+    def alternate_roundrobin(self, quantums, queue):
+        if self.arriavl_times:
+                    while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') :
+                        #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                        program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                        self.load_program(program_name,self.arriavl_times[0])
+                        self.pid+=1
+                        del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                        self.ready.put(self.cpus.get())
+        if queue.empty():
+            return
+        for quantum in range(0,quantums):
+            if queue == self.ready:
+                for instruction in range(self.quantum):
+                if swi:
+                    #move process to end of queue
+                    break
+            if queue == self.ready1:
+                for instruction in range(self.quantum2):
+                    if swi:
+                        #move process to end of queue
+                        break
+        demote current
+    
+    def fcfs(self):
+        pass
     def start_new_instance(self):
         print("Starting a new VMShell instance...")
         new_shell = VMShell()
@@ -181,7 +218,7 @@ class VMShell:
                     self.osx(filename)
             else:
                 print("No filename provided for load command.")
-        elif command=="execute":
+        elif command=="oldexecute":
             pid = 1
             for i in range(0,len(args),2):
                 if args[i] == "-v":
@@ -200,38 +237,90 @@ class VMShell:
                     self.arriavl_times.append(int(args[i+1]))
                 except:
                     self.arriavl_times.append(0)
-        elif command=="rr":
-            self.registers.clear()
-            self.registers.clear_gantt()
-            for i in range(0,len(args),2):
-                if args[i] == "-v":
-                    break
-                if self.verbose:
-                    print('Program name: ', args[i])
-                    print('arrival time: ', args[i+1])
-                # #FCFS scheduling
-                self.new.put(self.pid)
+        
+        elif command=="setrr":
+            self.quantum = int(args[0])
+            self.quantum2 = int(args[1])
+            if self.verbose:
+                print(f"Quantum set to {self.quantum}")
+                
+        elif command == "setSched":
+            self.Sched=args[0]
+            if self.verbose:
+                print(f"The Chosen Algorithm is {self.Sched}")
+
+        elif command=="execute":
+            if self.Sched == "fcfs":
+                self.fcfs()
+            if self.Sched=="mfq":
+                self.registers.clear()
+                self.registers.clear_gantt()
+                for i in range(0,len(args),2):
+                    if args[i] == "-v":
+                        break 
+                    if self.verbose:
+                        print('Program name: ', args[i])
+                        print('arrival time: ', args[i+1])
+                    # #FCFS scheduling
+                    self.new.put(self.pid)
+                    #self.print_queues()
+                    program_name = args[i]
+                    arrival_time = args[i + 1]
+                    if i==0:
+                        self.load_program(args[i],args[i+1])
+                        self.ready.put(self.cpus.get())
+                    else:
+                        self.arrival_program_dict[arrival_time] = program_name
+                    #self.print_queues()
+                    self.pid+=1
+                    try:
+                        if i!=0:
+                            self.arriavl_times.append(int(args[i+1]))
+                    except:
+                        self.arriavl_times.append(0)
+                self.arriavl_times.sort()      
+                print(self.arriavl_times)
+                print(self.arrival_program_dict)
+                self.mfq()
+                '''
+                run 3 queues 4, 2, 1 processes
+                restart, 
+                if cpu burst doesn't finish(hitting IO) -> demote to queue 1
+                if cpu burst finishes in 2 -> promote to queue 0
+                if cpu burst doesnt finish in 2 -> demote to fcfs
+                '''
+            elif self.Sched == "rr":
+                self.registers.clear()
+                self.registers.clear_gantt()
+                for i in range(0,len(args),2):
+                    if args[i] == "-v":
+                        break 
+                    if self.verbose:
+                        print('Program name: ', args[i])
+                        print('arrival time: ', args[i+1])
+                    # #FCFS scheduling
+                    self.new.put(self.pid)
+                    #self.print_queues()
+                    program_name = args[i]
+                    arrival_time = args[i + 1]
+                    if i==0:
+                        self.load_program(args[i],args[i+1])
+                        self.ready.put(self.cpus.get())
+                    else:
+                        self.arrival_program_dict[arrival_time] = program_name
+                    #self.print_queues()
+                    self.pid+=1
+                    try:
+                        if i!=0:
+                            self.arriavl_times.append(int(args[i+1]))
+                    except:
+                        self.arriavl_times.append(0)
+                self.arriavl_times.sort()      
+                print(self.arriavl_times)
+                print(self.arrival_program_dict)
+                #self.print_queues()     
+                self.round_robin()
                 #self.print_queues()
-                program_name = args[i]
-                arrival_time = args[i + 1]
-                if i==0:
-                    self.load_program(args[i],args[i+1])
-                    self.ready.put(self.cpus.get())
-                else:
-                    self.arrival_program_dict[arrival_time] = program_name
-                #self.print_queues()
-                self.pid+=1
-                try:
-                    if i!=0:
-                        self.arriavl_times.append(int(args[i+1]))
-                except:
-                    self.arriavl_times.append(0)
-            self.arriavl_times.sort()      
-            print(self.arriavl_times)
-            print(self.arrival_program_dict)
-            #self.print_queues()     
-            self.round_robin()
-            #self.print_queues()
         elif command=="gantt":
             self.print_gantt()        
         else:
