@@ -13,6 +13,7 @@ class CPU:
         #self.registers.write('PC',PC)
         self.arrival_time = int(arrival_time)
         self.pid = pid
+        
 
     def fetch(self):
         instruction = []
