@@ -168,6 +168,7 @@ class CPU:
             self.registers.gantt.append("X")
             self.registers.gantt1.append("X")
             self.registers.ganttfcfs.append(self.pid)
+            self.registers.main_gantt.append(self.pid)
             self.registers.increment('CLOCK')
         
         self.memory.clear(self.loader_address, self.b_size+self.loader_address)

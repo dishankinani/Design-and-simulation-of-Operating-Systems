@@ -18,7 +18,8 @@ class Register:
         self.gantt = []
         self.gantt1 = []
         self.ganttfcfs = []
-
+        self.main_gantt=[]
+        
     def read(self, reg_name):
         """ Read the value from a register """
         return self.registers.get(reg_name, None)

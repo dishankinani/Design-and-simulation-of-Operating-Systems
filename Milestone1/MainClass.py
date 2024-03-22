@@ -133,6 +133,7 @@ class VMShell:
                     self.registers.gantt.append('X')
                     self.registers.gantt1.append('X')
                     self.registers.ganttfcfs.append('X')
+                    self.registers.main_gantt.append('X')
             
             self.alternate_roundrobin(quantums = 4, queue = self.ready)
             self.alternate_roundrobin(quantums = 2, queue = self.ready1)
@@ -166,6 +167,7 @@ class VMShell:
                     self.registers.gantt.append(running.pid)
                     self.registers.gantt1.append('X')
                     self.registers.ganttfcfs.append('X')
+                    self.registers.main_gantt.append(running.pid)
 
                     if running.state == "waiting": # if hit swi
                         running.copy_registers()
@@ -203,7 +205,8 @@ class VMShell:
                     self.registers.gantt.append("X")
                     self.registers.gantt1.append(running.pid)
                     self.registers.ganttfcfs.append("X")
-                    if running.state=="waiting": # h it an swi, completed cpu burst
+                    self.registers.main_gantt.append(running.pid)
+                    if running.state=="waiting": # hit an swi, completed cpu burst
                         running.successful_bursts +=1
                         running.copy_registers()
                         running.state = "ready"
@@ -211,9 +214,8 @@ class VMShell:
                             break
                         else:
                             self.ready1.put(running)
-                        running = None
                         break
-                if running:
+                if running and running.state != 'terminated':
                     running.failed_bursts +=1
                     if self.promote_demote(running,self.ready,self.fcfs_queue, self.ready1):
                         pass
@@ -224,8 +226,11 @@ class VMShell:
             if queue==self.fcfs_queue and not self.fcfs_queue.empty():
                 running = self.fcfs_queue.get()
                 running.execute_program()
-                if running.state == "terminated":
-                        self.loader.remove_loader_address(running.loader_address,running.b_size)
+                
+                
+                if running.loader_address in self.loader.loader_address_stack:
+                    self.loader.remove_loader_address(running.loader_address,running.b_size)
+                
         
     
     def fcfs(self):
@@ -348,7 +353,8 @@ class VMShell:
         
         elif command=="setrr":
             self.quantum = int(args[0])
-            self.quantum2 = int(args[1])
+            magnitude = int(args[1])
+            self.quantum2=self.quantum*magnitude
             if self.verbose:
                 print(f"Quantum set to {self.quantum}")
                 

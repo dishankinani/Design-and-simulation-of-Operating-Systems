@@ -158,3 +158,41 @@ Traceback (most recent call last):
     self.registers.write('R2', int(value1))
                                ^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: ''
+
+Error Timestamp: 2024-03-22 14:49:07
+Error Dump:
+list.remove(x): x not in list
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 478, in start
+    self.run_command(command, args)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 397, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 140, in mfq
+    self.alternate_roundrobin(quantums = 1, queue = self.fcfs_queue)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 231, in alternate_roundrobin
+    self.loader.remove_loader_address(running.loader_address,running.b_size)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\loader.py", line 10, in remove_loader_address
+    self.loader_address_stack.remove(loader_address+b_size)
+ValueError: list.remove(x): x not in list
+
+Error Timestamp: 2024-03-22 15:00:44
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 35, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\loader.py", line 19, in loader
+    raise ProgramLoadError()
+ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-03-22 15:02:40
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 35, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\loader.py", line 19, in loader
+    raise ProgramLoadError()
+ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
