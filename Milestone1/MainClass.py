@@ -71,14 +71,16 @@ class VMShell:
             self.errordump(e)
 
     def round_robin(self):
-        
-        # sorted_queue = sorted(self.ready.queue, key=lambda obj: obj.arrival_time)
-        # for obj in sorted_queue:
-        #     self.ready.put(obj)
-        # self.cpus = queue.Queue(sorted_queue) # type: ignore
-        # self.ready = queue.Queue() # double ended queue for quick access to both sides
         while not self.cpus.empty() or not self.ready.empty() or self.arriavl_times:
-
+            print(f"Value of clock {self.registers.read('CLOCK')}")
+            if self.arriavl_times:
+                    while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') :
+                        #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                        program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                        self.load_program(program_name,self.arriavl_times[0])
+                        self.pid+=1
+                        del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                        self.ready.put(self.cpus.get())
             if self.ready.empty():
                 for x in range(self.quantum):
                     self.registers.increment('CLOCK')
@@ -87,7 +89,7 @@ class VMShell:
             if not self.ready.empty():
                 running = self.ready.get()
                 running.restore_registers()
-                for x in range(self.quantum):
+                for _ in range(self.quantum):
                     if running.state == 'terminated':
                         if running.pid not in self.terminated:
                             self.terminated.append(running.pid)
@@ -108,8 +110,6 @@ class VMShell:
                         self.pid+=1
                         del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
                         self.ready.put(self.cpus.get())
-                        # removes first pid from ready queue
-                        # # self.ready.get()
                 if running.state != 'terminated': 
                     running.copy_registers()
                     self.ready.put(running)
@@ -118,39 +118,135 @@ class VMShell:
         # pass
         
     def mfq(self):
-        while not self.cpus.empty() or not self.ready.empty() or not self.ready1.empty() or not self.fcfs_queue.empty():
+        while not self.cpus.empty() or not self.ready.empty() or not self.ready1.empty() or not self.fcfs_queue.empty() or self.arriavl_times:
+            if self.arriavl_times:
+                while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') :
+                    #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                    program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                    self.load_program(program_name,self.arriavl_times[0])
+                    self.pid+=1
+                    del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                    self.ready.put(self.cpus.get())
+            if self.ready.empty() and self.ready1.empty() and self.fcfs_queue.empty():
+                for _ in range(self.quantum):
+                    self.registers.increment('CLOCK')
+                    self.registers.gantt.append('X')
+                    self.registers.gantt1.append('X')
+                    self.registers.ganttfcfs.append('X')
             
             self.alternate_roundrobin(quantums = 4, queue = self.ready)
             self.alternate_roundrobin(quantums = 2, queue = self.ready1)
             self.alternate_roundrobin(quantums = 1, queue = self.fcfs_queue)
-        pass
+        
     
     def alternate_roundrobin(self, quantums, queue):
-        if self.arriavl_times:
-                    while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') :
-                        #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
-                        program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
-                        self.load_program(program_name,self.arriavl_times[0])
-                        self.pid+=1
-                        del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
-                        self.ready.put(self.cpus.get())
+        
         if queue.empty():
             return
-        for quantum in range(0,quantums):
-            if queue == self.ready:
-                for instruction in range(self.quantum):
-                if swi:
-                    #move process to end of queue
-                    break
-            if queue == self.ready1:
-                for instruction in range(self.quantum2):
-                    if swi:
-                        #move process to end of queue
+        for _ in range(0,quantums):
+            if self.arriavl_times:
+                while self.arriavl_times and self.arriavl_times[0] <= self.registers.read('CLOCK') and self.arrival_program_dict:
+                    #print(f"self.cpus.queue[0].arrival_time={self.cpus.queue[0].arrival_time}")
+                    program_name=self.arrival_program_dict.get(str(self.arriavl_times[0]))
+                    self.load_program(program_name,self.arriavl_times[0])
+                    self.pid+=1
+                    del self.arrival_program_dict[str(self.arriavl_times.pop(0))]
+                    self.ready.put(self.cpus.get())
+                
+            if queue == self.ready and not self.ready.empty():
+                running = self.ready.get()
+                for _ in range(self.quantum):
+                    if running.state == "terminated":
+                        if running.loader_address in self.loader.loader_address_stack:
+                            self.loader.remove_loader_address(running.loader_address,running.b_size)
                         break
-        demote current
+                    running.restore_registers()
+                    running.execute_single_instruction()
+                    self.registers.increment('CLOCK')
+                    self.registers.gantt.append(running.pid)
+                    self.registers.gantt1.append('X')
+                    self.registers.ganttfcfs.append('X')
+
+                    if running.state == "waiting": # if hit swi
+                        running.copy_registers()
+                        running.state = 'ready'
+                        running.successful_bursts+=1
+                        # print('please don\'t be here')
+                        if running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts < 4:
+                            running.successful_bursts=0
+                            running.failed_bursts=0
+                            self.ready1.put(running)
+                        else:
+                            self.ready.put(running)
+                        break
+                if running and running.state != 'terminated':
+                    running.copy_registers()
+                    running.failed_bursts+=1
+                    if running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts < 4:
+                        running.successful_bursts=0
+                        running.failed_bursts=0
+                        self.ready1.put(running)
+                    else:
+                        self.ready.put(running)
+                        
+                        
+            if queue == self.ready1 and not self.ready1.empty():
+                running = self.ready1.get()
+                for _ in range(self.quantum2):
+                    if running.state == "terminated":
+                        if running.loader_address in self.loader.loader_address_stack:
+                            self.loader.remove_loader_address(running.loader_address,running.b_size)
+                        break
+                    running.restore_registers()
+                    running.execute_single_instruction()
+                    self.registers.increment('CLOCK')
+                    self.registers.gantt.append("X")
+                    self.registers.gantt1.append(running.pid)
+                    self.registers.ganttfcfs.append("X")
+                    if running.state=="waiting": # h it an swi, completed cpu burst
+                        running.successful_bursts +=1
+                        running.copy_registers()
+                        running.state = "ready"
+                        if self.promote_demote(running,self.ready,self.fcfs_queue, self.ready1):
+                            break
+                        else:
+                            self.ready1.put(running)
+                        running = None
+                        break
+                if running:
+                    running.failed_bursts +=1
+                    if self.promote_demote(running,self.ready,self.fcfs_queue, self.ready1):
+                        pass
+                    else:
+                        running.copy_registers()
+                        self.ready1.put(running)
+
+            if queue==self.fcfs_queue and not self.fcfs_queue.empty():
+                running = self.fcfs_queue.get()
+                running.execute_program()
+                if running.state == "terminated":
+                        self.loader.remove_loader_address(running.loader_address,running.b_size)
+        
     
     def fcfs(self):
         pass
+
+    def promote_demote(self, running , promote_destination,demote_destination, source) -> bool:
+        if running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts >= 4:
+            promote_destination.put(running)
+            running.successful_bursts=0
+            running.failed_bursts=0
+            return True
+        elif running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts < 4:
+            demote_destination.put(running)
+            running.successful_bursts=0
+            running.failed_bursts=0
+            return True
+        else:
+            return False
+        # else:
+        #     source.put(running)    
+
     def start_new_instance(self):
         print("Starting a new VMShell instance...")
         new_shell = VMShell()
@@ -178,7 +274,12 @@ class VMShell:
             print("Error: errordump.txt not found.")
 
     def print_gantt(self):
+        print(f"First Queue (quantum = {self.quantum}):")
         print(self.registers.gantt)
+        print(f"Second Queue (quantum = {self.quantum2}):")
+        print(self.registers.gantt1)
+        print("FCFS Queue:")
+        print(self.registers.ganttfcfs)
 
     def run_command(self, command, args):
         self.verbose = "-v" in args
@@ -205,6 +306,13 @@ class VMShell:
                         if i % 6 == 0:
                             file.write('\n')
                     file.write(str(self.registers))
+                    
+        elif command=="clearOS":
+            self.memory = Memory()
+            self.registers = Register()
+            self.loader = Loader(self.memory)
+            self.cpus = queue.Queue()
+
         elif command=="errordump":
             self.print_errordump()
         elif command=="shell":
@@ -254,6 +362,7 @@ class VMShell:
                 self.fcfs()
             if self.Sched=="mfq":
                 self.registers.clear()
+                self.registers.clearClock()
                 self.registers.clear_gantt()
                 for i in range(0,len(args),2):
                     if args[i] == "-v":
@@ -291,6 +400,7 @@ class VMShell:
                 '''
             elif self.Sched == "rr":
                 self.registers.clear()
+                self.registers.clearClock()
                 self.registers.clear_gantt()
                 for i in range(0,len(args),2):
                     if args[i] == "-v":

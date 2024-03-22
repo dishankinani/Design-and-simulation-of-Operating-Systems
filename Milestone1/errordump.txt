@@ -1,509 +1,160 @@
 
-Error Timestamp: 2024-03-06 16:48:07
+Error Timestamp: 2024-03-21 15:31:36
 Error Dump:
-deque index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 260, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 412, in start
     self.run_command(command, args)
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 217, in run_command
-    self.round_robin()
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 72, in round_robin
-    if self.cpus.queue[0].arrival_time <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~^^^
-IndexError: deque index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 331, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 128, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 154, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 177, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 70, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
 
-Error Timestamp: 2024-03-06 16:49:46
-Error Dump:
-deque index out of range
-Traceback (most recent call last):
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 260, in start
-    self.run_command(command, args)
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 217, in run_command
-    self.round_robin()
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 72, in round_robin
-    if self.cpus.queue[0].arrival_time <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~^^^
-IndexError: deque index out of range
-
-Error Timestamp: 2024-03-06 16:52:20
+Error Timestamp: 2024-03-21 18:01:30
 Error Dump:
 Error: Cannot load a new program while another program is already ready to run at the same location.
 Traceback (most recent call last):
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 18, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-06 17:01:58
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\Design-and-simulation-of-Operating-Systems\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 18, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-07 00:19:38
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-07 00:19:41
-Error Dump:
-list.remove(x): x not in list
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 264, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 221, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 91, in round_robin
-    self.loader.remove_loader_address(running.loader_address,running.b_size)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 9, in remove_loader_address
-    self.loader_address_stack.remove(loader_address+b_size)
-ValueError: list.remove(x): x not in list
-
-Error Timestamp: 2024-03-07 15:55:47
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-07 15:56:11
-Error Dump:
-list.remove(x): x not in list
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 264, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 221, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 91, in round_robin
-    self.loader.remove_loader_address(running.loader_address,running.b_size)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 9, in remove_loader_address
-    self.loader_address_stack.remove(loader_address+b_size)
-ValueError: list.remove(x): x not in list
-
-Error Timestamp: 2024-03-07 16:03:12
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-07 16:03:16
-Error Dump:
-list.remove(x): x not in list
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 264, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 221, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 91, in round_robin
-    self.loader.remove_loader_address(running.loader_address,running.b_size)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 10, in remove_loader_address
-    self.loader_address_stack.remove(loader_address+b_size)
-ValueError: list.remove(x): x not in list
-
-Error Timestamp: 2024-03-07 16:05:43
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 28, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-14 16:41:36
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 29, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
-    raise ProgramLoadError()
-ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
-
-Error Timestamp: 2024-03-14 18:59:52
-Error Dump:
-'<=' not supported between instances of 'str' and 'int'
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 230, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times.queue[0] <= self.registers.read('CLOCK'):
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: '<=' not supported between instances of 'str' and 'int'
-
-Error Timestamp: 2024-03-14 19:02:49
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:02:54
-Error Dump:
-deque index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 230, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times.queue[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~~~~~~~^^^
-IndexError: deque index out of range
-
-Error Timestamp: 2024-03-14 19:05:17
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:05:21
-Error Dump:
-deque index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 230, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times.queue[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~~~~~~~^^^
-IndexError: deque index out of range
-
-Error Timestamp: 2024-03-14 19:08:23
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:09:41
-Error Dump:
-deque index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 231, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times.queue[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~~~~~~~^^^
-IndexError: deque index out of range
-
-Error Timestamp: 2024-03-14 19:09:46
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:21:31
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:21:34
-Error Dump:
-list index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 231, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
-
-Error Timestamp: 2024-03-14 19:23:37
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:24:33
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:25:19
-Error Dump:
-list index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 275, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 233, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
-
-Error Timestamp: 2024-03-14 19:34:48
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:39:23
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:40:40
-Error Dump:
-expected str, bytes or os.PathLike object, not NoneType
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-TypeError: expected str, bytes or os.PathLike object, not NoneType
-
-Error Timestamp: 2024-03-14 19:42:24
-Error Dump:
-[Errno 2] No such file or directory: 'Program not found'
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
-    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
-                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 14, in loader
-    with open(file_path, 'rb') as file:
-         ^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'Program not found'
-
-Error Timestamp: 2024-03-14 19:44:43
-Error Dump:
-list index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 231, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
-
-Error Timestamp: 2024-03-14 19:45:43
-Error Dump:
-list index out of range
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 231, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
-
-Error Timestamp: 2024-03-14 19:49:24
-Error Dump:
-1
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 274, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 232, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 105, in round_robin
-    del self.arrival_program_dict[running.arrival_time]
-        ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-KeyError: 1
-
-Error Timestamp: 2024-03-14 19:50:22
-Error Dump:
-'1'
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 274, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 232, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 105, in round_robin
-    del self.arrival_program_dict[str(running.arrival_time)]
-        ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyError: '1'
-
-Error Timestamp: 2024-03-14 19:53:05
-Error Dump:
-9
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 273, in start
-    self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 231, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 81, in round_robin
-    del self.arrival_program_dict[self.arriavl_times.pop(0)]
-        ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyError: 9
-
-Error Timestamp: 2024-03-14 19:54:36
-Error Dump:
-Error: Cannot load a new program while another program is already ready to run at the same location.
-Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 30, in load_program
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 35, in load_program
     b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\loader.py", line 19, in loader
     raise ProgramLoadError()
 ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
 
-Error Timestamp: 2024-03-14 19:57:40
+Error Timestamp: 2024-03-22 12:35:38
 Error Dump:
 list index out of range
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 274, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 477, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 232, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 380, in run_command
+    arrival_time = args[i + 1]
+                   ~~~~^^^^^^^
 IndexError: list index out of range
 
-Error Timestamp: 2024-03-14 19:58:59
+Error Timestamp: 2024-03-22 12:50:39
 Error Dump:
-list index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 274, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 475, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 232, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 77, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 394, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 138, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 165, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 181, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\CPU.py", line 72, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
 
-Error Timestamp: 2024-03-14 20:01:11
+Error Timestamp: 2024-03-22 13:08:59
 Error Dump:
-list index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 275, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 483, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 233, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 402, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 142, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 172, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 182, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 72, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
 
-Error Timestamp: 2024-03-14 20:01:20
+Error Timestamp: 2024-03-22 13:13:03
 Error Dump:
-list index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 275, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 485, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 233, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 78, in round_robin
-    if self.arriavl_times[0] <= self.registers.read('CLOCK'):
-       ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 404, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 142, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 172, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 182, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 72, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
 
-Error Timestamp: 2024-03-14 23:48:35
+Error Timestamp: 2024-03-22 13:16:10
 Error Dump:
-list index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 276, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 484, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 234, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 99, in round_robin
-    while self.arriavl_times[0] <= self.registers.read('CLOCK'):
-          ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 403, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 142, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 171, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 182, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 72, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
 
-Error Timestamp: 2024-03-14 23:51:54
+Error Timestamp: 2024-03-22 13:16:40
 Error Dump:
-list index out of range
+invalid literal for int() with base 10: ''
 Traceback (most recent call last):
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 276, in start
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 484, in start
     self.run_command(command, args)
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 234, in run_command
-    self.round_robin()
-  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 99, in round_robin
-    while self.arriavl_times[0] <= self.registers.read('CLOCK') and self.arriavl_times:
-          ~~~~~~~~~~~~~~~~~~^^^
-IndexError: list index out of range
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 403, in run_command
+    self.mfq()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 142, in mfq
+    self.alternate_roundrobin(quantums = 4, queue = self.ready)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 171, in alternate_roundrobin
+    running.execute_single_instruction()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 182, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\CPU.py", line 72, in execute
+    swi1.executeSWI(destination)
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 15, in executeSWI
+    self.input_stuff()
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\SWI.py", line 26, in input_stuff
+    self.registers.write('R2', int(value1))
+                               ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''

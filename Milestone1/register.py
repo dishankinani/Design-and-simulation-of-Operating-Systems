@@ -16,6 +16,8 @@ class Register:
             'Z': 0,   # Zero Flag
         }
         self.gantt = []
+        self.gantt1 = []
+        self.ganttfcfs = []
 
     def read(self, reg_name):
         """ Read the value from a register """
@@ -46,6 +48,12 @@ class Register:
         self.write('SP', 0)
         self.write('Z', 0)
     
+    def clearClock(self):
+        #Clear Clock
+        self.write('CLOCK',0)
+    
     def clear_gantt(self):
         "Clears Gantt Chart"
         self.gantt.clear()
+        self.gantt1.clear()
+        self.ganttfcfs.clear()

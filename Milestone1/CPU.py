@@ -13,11 +13,16 @@ class CPU:
         #self.registers.write('PC',PC)
         self.arrival_time = int(arrival_time)
         self.pid = pid
-<<<<<<< HEAD
+        self.consecutive_cpu_bursts = 0
+        self.successful_bursts = 0
+        self.failed_bursts = 0
+        self.local_registers = registers
         
-=======
-        self.local_registers = copy.deepcopy(self.registers)
->>>>>>> c24edb00a9672a16b66276e6682a9f0420b41fc4
+    def increment_cpu_burst(self):
+        self.consecutive_cpu_bursts+=1
+
+    def check_cpu_burst(self) -> int:
+        return self.consecutive_cpu_bursts
 
     def fetch(self):
         instruction = []
@@ -65,7 +70,7 @@ class CPU:
             self.state = 'waiting'
             swi1=SWI(self.memory,self.registers,self.loader_address,self.b_size,self.registers.read('PC'),self.verbose)
             swi1.executeSWI(destination)
-            self.state = 'ready'
+            # self.state = 'swi'
         
         else:
             print(f"Unknown opcode: {opcode}")
@@ -160,7 +165,9 @@ class CPU:
                 #jump to IO queue
                 print('jump to IO queue todo')
             self.execute(instruction)
-            self.registers.gantt.append(self.pid)
+            self.registers.gantt.append("X")
+            self.registers.gantt1.append("X")
+            self.registers.ganttfcfs.append(self.pid)
             self.registers.increment('CLOCK')
         
         self.memory.clear(self.loader_address, self.b_size+self.loader_address)
@@ -170,6 +177,7 @@ class CPU:
             print("Program terminated.")
             
     def execute_single_instruction(self):
+        print("in the execute single instruction")
         instruction = self.fetch()
         self.execute(instruction)
         if self.current_instruction_address >= self.b_size:
