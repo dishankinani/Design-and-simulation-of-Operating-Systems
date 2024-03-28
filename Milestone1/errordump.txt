@@ -196,3 +196,14 @@ Traceback (most recent call last):
   File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\loader.py", line 19, in loader
     raise ProgramLoadError()
 ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
+
+Error Timestamp: 2024-03-26 17:21:38
+Error Dump:
+Error: Cannot load a new program while another program is already ready to run at the same location.
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\MainClass.py", line 35, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\MileStone1\loader.py", line 19, in loader
+    raise ProgramLoadError()
+ProgramLoadError.ProgramLoadError: Error: Cannot load a new program while another program is already ready to run at the same location.
