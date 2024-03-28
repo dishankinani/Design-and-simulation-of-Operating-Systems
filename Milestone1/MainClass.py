@@ -285,6 +285,10 @@ class VMShell:
         print(self.registers.gantt1)
         print("FCFS Queue:")
         print(self.registers.ganttfcfs)
+        
+    def print_main_gantt(self):
+        print("Main Gantt Chart:")
+        print(self.registers.main_gantt)
 
     def run_command(self, command, args):
         self.verbose = "-v" in args
@@ -438,7 +442,9 @@ class VMShell:
                 self.round_robin()
                 #self.print_queues()
         elif command=="gantt":
-            self.print_gantt()        
+            self.print_gantt() 
+        elif command == "main_gantt":
+            self.print_main_gantt()       
         else:
             print("Command Not Found")
         
