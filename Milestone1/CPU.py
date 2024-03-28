@@ -48,20 +48,28 @@ class CPU:
         dest_reg = f'R{destination}'
     
         if opcode == 16:  # opcode for ADD
+            self.state = 'ready'
             self.add(operand1, operand2, dest_reg)
         elif opcode == 1:
+            self.state = 'ready'
             self.mov(destination, operand1)
         elif opcode == 17:  # opcode for SUBTRACT
+            self.state = 'ready'
             self.subtract(operand1, operand2,dest_reg)
         elif opcode == 18: # Multiply
+            self.state = 'ready'
             self.multiply(operand1,operand2,dest_reg)
         elif opcode == 19: # Divide
+            self.state = 'ready'
             self.divide(operand1,operand2,dest_reg)
         elif opcode == 22: # Move immedate
+            self.state = 'ready'
             self.mvi(dest_reg,operand1)
         elif opcode == 13: 
+            self.state = 'ready'
             self.and_operation(destination, operand1)
         elif opcode == 14: 
+            self.state = 'ready'
             self.or_operation(destination, operand1)
         elif opcode == 20:
             #call SWI Class

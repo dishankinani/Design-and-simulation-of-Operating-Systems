@@ -171,9 +171,8 @@ class VMShell:
 
                     if running.state == "waiting": # if hit swi
                         running.copy_registers()
-                        running.state = 'ready'
                         running.successful_bursts+=1
-                        # print('please don\'t be here')
+                        #print('please don\'t be here')
                         if running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts < 4:
                             running.successful_bursts=0
                             running.failed_bursts=0
@@ -181,7 +180,7 @@ class VMShell:
                         else:
                             self.ready.put(running)
                         break
-                if running and running.state != 'terminated':
+                if running and running.state != 'terminated' and running.state != 'waiting':
                     running.copy_registers()
                     running.failed_bursts+=1
                     if running.failed_bursts+running.successful_bursts == 5 and  running.successful_bursts < 4:
@@ -190,6 +189,7 @@ class VMShell:
                         self.ready1.put(running)
                     else:
                         self.ready.put(running)
+                    running.state = 'ready'
                         
                         
             if queue == self.ready1 and not self.ready1.empty():
@@ -209,19 +209,20 @@ class VMShell:
                     if running.state=="waiting": # hit an swi, completed cpu burst
                         running.successful_bursts +=1
                         running.copy_registers()
-                        running.state = "ready"
                         if self.promote_demote(running,self.ready,self.fcfs_queue, self.ready1):
                             break
                         else:
                             self.ready1.put(running)
                         break
-                if running and running.state != 'terminated':
+                if running and running.state != 'terminated' and running.state != 'waiting':
                     running.failed_bursts +=1
                     if self.promote_demote(running,self.ready,self.fcfs_queue, self.ready1):
                         pass
                     else:
                         running.copy_registers()
                         self.ready1.put(running)
+                    running.state = 'ready'
+                    
 
             if queue==self.fcfs_queue and not self.fcfs_queue.empty():
                 running = self.fcfs_queue.get()
