@@ -158,8 +158,7 @@ class VMShell:
                 running = self.ready.get()
                 for _ in range(self.quantum):
                     if running.state == "terminated":
-                        if running.loader_address in self.loader.loader_address_stack:
-                            self.loader.remove_loader_address(running.loader_address,running.b_size)
+                        self.loader.remove_loader_address(running.loader_address,running.b_size)
                         break
                     running.restore_registers()
                     running.execute_single_instruction()
@@ -196,8 +195,7 @@ class VMShell:
                 running = self.ready1.get()
                 for _ in range(self.quantum2):
                     if running.state == "terminated":
-                        if running.loader_address in self.loader.loader_address_stack:
-                            self.loader.remove_loader_address(running.loader_address,running.b_size)
+                        self.loader.remove_loader_address(running.loader_address,running.b_size)
                         break
                     running.restore_registers()
                     running.execute_single_instruction()
@@ -227,10 +225,7 @@ class VMShell:
             if queue==self.fcfs_queue and not self.fcfs_queue.empty():
                 running = self.fcfs_queue.get()
                 running.execute_program()
-                
-                
-                if running.loader_address in self.loader.loader_address_stack:
-                    self.loader.remove_loader_address(running.loader_address,running.b_size)
+                self.loader.remove_loader_address(running.loader_address,running.b_size)
                 
         
     
