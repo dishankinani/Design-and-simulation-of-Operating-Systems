@@ -18,6 +18,8 @@ class Loader:
             if b_size+loader_address in self.loader_address_stack:
                 raise ProgramLoadError()
             
+            # '''This section errors out and breaks the shell, need try catch or something'''
+            
             else:
                 if len(self.loader_address_stack) == 1:
                     if  b_size + loader_address < self.loader_address_stack[0]:
