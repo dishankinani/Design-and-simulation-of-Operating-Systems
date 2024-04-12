@@ -1,0 +1,106 @@
+
+Error Timestamp: 2024-04-12 14:17:12
+Error Dump:
+[Errno 2] No such file or directory: 'producer'
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 35, in load_program
+    b_size, first_instruction_address, loader_address = self.loader.loader(filename, self.verbose)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\loader.py", line 14, in loader
+    with open(file_path, 'rb') as file:
+         ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'producer'
+
+Error Timestamp: 2024-04-12 14:23:12
+Error Dump:
+cannot pickle '_thread.lock' object
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 482, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 438, in run_command
+    self.round_robin()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 101, in round_robin
+    running.execute_single_instruction()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 190, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 77, in execute
+    process_pcb= PCB(self.registers,self.current_instruction_address,self.loader_address,self.b_size,self.arrival_time)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\pcb.py", line 4, in __init__
+    self.registers = copy.deepcopy(registers)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+                             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+                             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 161, in deepcopy
+    rv = reductor(4)
+         ^^^^^^^^^^^
+TypeError: cannot pickle '_thread.lock' object
+
+Error Timestamp: 2024-04-12 14:24:38
+Error Dump:
+cannot pickle '_thread.lock' object
+Traceback (most recent call last):
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 482, in start
+    self.run_command(command, args)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 438, in run_command
+    self.round_robin()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 101, in round_robin
+    running.execute_single_instruction()
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 190, in execute_single_instruction
+    self.execute(instruction)
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\CPU.py", line 77, in execute
+    process_pcb= PCB(self.registers,self.current_instruction_address,self.loader_address,self.b_size,self.arrival_time)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\pcb.py", line 4, in __init__
+    self.registers = copy.deepcopy(registers)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+                             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 271, in _reconstruct
+    state = deepcopy(state, memo)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 231, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+                             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\anaconda3\Lib\copy.py", line 161, in deepcopy
+    rv = reductor(4)
+         ^^^^^^^^^^^
+TypeError: cannot pickle '_thread.lock' object

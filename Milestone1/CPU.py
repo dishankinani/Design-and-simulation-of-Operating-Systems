@@ -186,7 +186,6 @@ class CPU:
             print("Program terminated.")
             
     def execute_single_instruction(self):
-        print("in the execute single instruction")
         instruction = self.fetch()
         self.execute(instruction)
         if self.current_instruction_address >= self.b_size:

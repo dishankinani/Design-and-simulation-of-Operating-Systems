@@ -1,3 +1,4 @@
+import queue
 class Register:
     def __init__(self):
         # Initialize registers as a dictionary
@@ -19,6 +20,14 @@ class Register:
         self.gantt1 = []
         self.ganttfcfs = []
         self.main_gantt=[]
+        self.shared_int = None
+        
+    def create_shared_memory(self):
+        "Create shared memory"
+        self.shared_int = []
+    
+    def destroy_shared_memory(self):
+        self.shared_int=None 
         
     def read(self, reg_name):
         """ Read the value from a register """
@@ -58,3 +67,21 @@ class Register:
         self.gantt.clear()
         self.gantt1.clear()
         self.ganttfcfs.clear()
+
+    def read_shared_memory(self):
+        "read the shared memory"
+        try:
+            value=self.shared_int.pop(0) # type: ignore
+            return value
+        except:
+            print("Shared Memory hasn't been created yet")
+            
+        
+            
+        
+    def write_shared_memory(self,value):
+        "write the shared memory"
+        try:  
+            self.shared_int.append(value) # type: ignore
+        except:
+            print("Shared Memory error")
