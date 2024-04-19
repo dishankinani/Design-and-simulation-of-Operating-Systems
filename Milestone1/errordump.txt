@@ -1,24 +1,12 @@
 
-Error Timestamp: 2024-04-18 18:27:21
-Error Dump:
-1
-Traceback (most recent call last):
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 55, in load_mmu
-    b_size, PC = self.mmu.load_program(filename, self.verbose, pid=self.pid)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MMU.py", line 60, in load_program
-    array = self.page_table[pid]
-            ~~~~~~~~~~~~~~~^^^^^
-KeyError: 1
-
-Error Timestamp: 2024-04-18 18:35:41
+Error Timestamp: 2024-04-19 14:58:05
 Error Dump:
 ord() expected a character, but string of length 0 found
 Traceback (most recent call last):
   File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MainClass.py", line 55, in load_mmu
-    b_size, PC = self.mmu.load_program(filename, self.verbose, pid=self.pid)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MMU.py", line 73, in load_program
+    b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\brade\Documents\A School Work\OS\Group OS\New os bc git stupid\Design-and-simulation-of-Operating-Systems\Milestone1\MMU.py", line 80, in load_program
     instruction_code = ord(byte)
                        ^^^^^^^^^
 TypeError: ord() expected a character, but string of length 0 found

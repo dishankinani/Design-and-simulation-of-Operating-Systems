@@ -52,8 +52,8 @@ class VMShell:
     
     def load_mmu(self, filename):
         try:
-            b_size, PC = self.mmu.load_program(filename, self.verbose, pid=self.pid)
-            new_cpu = CPU(self.memory, self.registers, 0, b_size, PC, self.verbose, pid=self.pid)
+            b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
+            new_cpu = CPU(self.memory, self.registers, 0, b_size, PC, self.verbose, pid=self.pid, process_pages=process_pages)
             if self.verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {PC}")
                 print(f'{filename} status set to ready')
@@ -68,7 +68,7 @@ class VMShell:
         try:
             while not self.cpus.empty():
                 
-                #print(list(self.cpus.queue))
+                print(list(self.cpus.queue))
                 running = self.cpus.get()
                 #print(running)
                 running.state = 'running'
@@ -77,11 +77,7 @@ class VMShell:
                 if self.verbose:
                     print('process set to running')
                     print("Program executed.")
-                    
-                if running.state == 'terminated':
-                    self.terminated.append(self.ready.get())
-                    self.print_queues()
-                    # del running    
+                
             else:
                 print("End of Programs")
         except Exception as e:
@@ -384,7 +380,11 @@ class VMShell:
                     self.arriavl_times.append(int(args[i+1]))
                 except:
                     self.arriavl_times.append(0)
-        
+        elif command == "set_page_size":
+            self.memory.set_page_size(int(args[0]))
+            self.mmu.set_page_size(int(args[0]))
+            if self.verbose:
+                print(f"Page size set to {self.memory.page_size}")
         elif command=="setrr":
             self.quantum = int(args[0])
             magnitude = int(args[1])
@@ -517,6 +517,8 @@ class VMShell:
         table.add_row("coredump","Prints memory and registers to coredump.txt if verbose prints to console","coredump")
         table.add_row("errordump","prints errordump to errordump.txt","errordump")
         table.add_row("page table","prints pages assigned a PID","page_table")
+        table.add_row("set page size","sets the size (in bytes) of a page in  memory","set_page_size {size}")
+        
         # table.add_row("","","")
         console.print(table)
         

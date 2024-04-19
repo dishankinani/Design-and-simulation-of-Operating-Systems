@@ -2,7 +2,14 @@ class Memory:
     def __init__(self, size=10000):
         self.size = size
         self.memory = [0] * size
+        self.page_size = 24
 
+    def set_page_size(self,page_size):
+        self.page_size=page_size
+
+    def get_page_size(self):
+        return self.page_size
+        
     def read(self, address):
         if 0 <= address < self.size:
             return self.memory[address]

@@ -9,6 +9,7 @@ class mmu:
         self.page_table = {}
         self.free_pages = [i for i in range(0, math.floor(memory.size/self.page_size))]
         self.page_number = memory.size // self.page_size # number of pages for each program
+        
     
     def get_page_size(self):
         return self.page_size
@@ -44,7 +45,7 @@ class mmu:
             # Read header information from the byte code file
             b_size, PC = struct.unpack('ii', file.read(8))
             file.read(4) # fetches loader address
-            current_address = PC
+            #current_address=PC
             # Display header information
             print(f'File Size{b_size}')
             print(f'Program Counter{PC}')
@@ -58,6 +59,7 @@ class mmu:
                 
             for page in range(math.ceil((b_size-PC)/self.page_size)):
                 current_page=self.free_pages.pop(0)
+                current_address=current_page*self.page_size
                 page_number_array.append(current_page)
                 # if not pid in self.page_table:
                 #     self.page_table[pid]=[]
@@ -65,9 +67,14 @@ class mmu:
                 # array.append(current_page)
                 # self.page_table[pid]=array
             # file.read(PC)
-                for i in range(current_address,current_address+self.page_size,6):# do a for loop that increments by 6 for each command to the end of the file    
-                    if current_address >= b_size:
-                        break
+            #+current_page*self.page_size
+                
+                print("Here, current page =", current_page)
+                # current_address = current_page * self.page_size
+                for i in range(current_address,current_page*self.page_size+self.page_size,6):# do a for loop that increments by 6 for each command to the end of the file    
+                    print(f"Current Address {current_address}")
+                    if current_address >= b_size-PC:
+                            break
                     byte = file.read(1)
                     #change byte into number for function calls and readability
                     instruction_code = ord(byte)
@@ -252,7 +259,7 @@ class mmu:
                         file.read(1)
                         current_address+=1
             self.page_table[pid]=page_number_array        
-            return b_size, PC  
+            return b_size, PC, self.page_table[pid]
     def print_page_table(self):
         print(f"The Page table looks like this {self.page_table}")
     def print_errordump(self, error):

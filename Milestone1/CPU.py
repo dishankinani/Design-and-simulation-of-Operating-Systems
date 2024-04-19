@@ -2,7 +2,7 @@ from SWI import SWI
 import copy
 from pcb import PCB
 class CPU:
-    def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, pid = None, arrival_time=0):
+    def __init__(self, memory, registers, loader_address, b_size, first_instruction_address, verbose, pid = None, arrival_time=0,process_pages=None):
         self.memory = memory
         self.registers = registers
         self.loader_address=loader_address
@@ -10,6 +10,7 @@ class CPU:
         self.verbose=verbose
         self.state = 'new'
         self.current_instruction_address = first_instruction_address
+        self.PC = first_instruction_address
         #self.registers.write('PC',PC)
         self.arrival_time = int(arrival_time)
         self.pid = pid
@@ -17,6 +18,9 @@ class CPU:
         self.successful_bursts = 0
         self.failed_bursts = 0
         self.local_registers = registers
+        self.process_pages=process_pages
+        self.reset_address=0
+        self.current_page = process_pages.pop(0) # type: ignore
         
     def increment_cpu_burst(self):
         self.consecutive_cpu_bursts+=1
@@ -26,11 +30,14 @@ class CPU:
 
     def fetch(self):
         instruction = []
+        offset = self.current_page * self.memory.get_page_size()  # Offset for the first instruction
+        print("Memory location of instruction",self.current_instruction_address+offset )
         for _ in range(6):  # Fetch 6 bytes individually
-            instruction.append(self.memory.read(self.loader_address+self.current_instruction_address))
+            instruction.append(self.memory.read(self.current_instruction_address+offset))
             if self.verbose:
                 print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.current_instruction_address}")
             self.current_instruction_address+=1  # Increment PC for each byte read
+            self.reset_address+=1
             if self.verbose:
                 print(f"After incrementing instruction address {self.current_instruction_address}" )
         return instruction
@@ -164,8 +171,10 @@ class CPU:
         if self.verbose:
             print(f"Binary File size is {self.b_size}")
             print(f"loader address is {self.loader_address}")
-
-        while self.current_instruction_address < self.b_size:
+        while self.current_instruction_address < self.b_size-self.PC:
+            if self.current_instruction_address % self.memory.get_page_size()+1 == 0:
+                self.current_page = self.process_pages.pop(0) #type: ignore
+                self.reset_address=0
             print(f"PC from CPU {self.current_instruction_address + self.loader_address}")
             print(f"b_size from CPU {self.b_size}")
             instruction = self.fetch()
@@ -178,12 +187,14 @@ class CPU:
             self.registers.ganttfcfs.append(self.pid)
             self.registers.main_gantt.append(self.pid)
             self.registers.increment('CLOCK')
+            
         
-        self.memory.clear(self.loader_address, self.b_size+self.loader_address)
+        #self.memory.clear(self.loader_address, self.b_size+self.loader_address)
         self.registers.clear()
         self.state = 'terminated'
         if self.verbose:
             print("Program terminated.")
+            
             
     def execute_single_instruction(self):
         instruction = self.fetch()
