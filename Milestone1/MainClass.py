@@ -26,10 +26,11 @@ class VMShell:
         self.quantum = 8
         self.quantum2 = 16
         self.verbose=False
+        self.programs_pid={}
         self.arrival_program_dict={}
         self.pid=1
         self.Sched="FCFS"
-        # self.mmu = MMU.mmu(self.memory)
+        self.mmu = MMU.mmu(self.memory)
         
 
     def load_program(self, filename, arrival_time):
@@ -50,11 +51,18 @@ class VMShell:
             self.errordump(e)
     
     def load_mmu(self, filename):
-        b_size, PC = self.mmu.get_binary_filesize(filename)
-        program_length = b_size - PC
-        
-        program_array = [0]*b_size
-        
+        try:
+            b_size, PC = self.mmu.load_program(filename, self.verbose, pid=self.pid)
+            new_cpu = CPU(self.memory, self.registers, 0, b_size, PC, self.verbose, pid=self.pid)
+            if self.verbose:
+                print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {PC}")
+                print(f'{filename} status set to ready')
+            #changing cpu state to ready
+            new_cpu.state = 'ready'
+            self.cpus.put(new_cpu)            
+        except Exception as e:
+            self.errordump(e)
+
 
     def run_program(self):
         try:
@@ -294,6 +302,10 @@ class VMShell:
     def print_main_gantt(self):
         print("Main Gantt Chart:")
         print(self.registers.main_gantt)
+        
+    def print_page_table(self):
+        # print("Page Table:")
+        self.mmu.print_page_table()
 
     def run_command(self, command, args):
         self.verbose = "-v" in args
@@ -301,11 +313,21 @@ class VMShell:
             print(self.registers)
         
         if command == "load":
-            filename = args[0] if args else None
-            if filename:
-                self.load_program(filename,0)
-            else:
-                print("No filename provided for load command.")
+            self.registers.clear()
+            self.registers.clearClock()
+            self.registers.clear_gantt()
+            for i in range(0,len(args)):
+                filename=args[i]
+                if args[i] == "-v":
+                    break 
+                if self.verbose:
+                    print('Program name: ', args[i])
+                # #FCFS scheduling
+                self.new.put(self.pid)
+                #self.print_queues()
+                self.load_mmu(filename)
+                #self.print_queues()
+                self.pid+=1
         elif command == "help":
             self.print_help()
         elif command == "run":
@@ -452,7 +474,9 @@ class VMShell:
         elif command=="gantt":
             self.print_gantt() 
         elif command == "main_gantt":
-            self.print_main_gantt()       
+            self.print_main_gantt() 
+        elif command == "page_table":
+            self.print_page_table()      
         else:
             print("Command Not Found")
         
@@ -479,19 +503,20 @@ class VMShell:
         table.add_column("Commands", style="bold")
         table.add_column("Utility", justify="center")
         table.add_column("Example", justify="center")
-        table.add_row("-v", "Set OS to verbose mode")
+        table.add_row("verbose", "Set OS to verbose mode", "-v")
         table.add_row("load", "loads programs into memory", "load program1.osx ... programn.osx")
         table.add_row("run", "runs programs that are loaded", "oldexecute")
         table.add_row("setSched", "Sets the CPU scheduler to RR or MFQ", "setSched mfq")
         table.add_row("setrr", "set the quantums for the round robin, first is quantum size and second is ratio", "setrr {quantum} {ratio}")
         table.add_row("execute","Loads and runs n programs using the selected scheduler","execute program1.osx {arrival_time}...programn.osx {arrival_time}")
-        table.add_row("osx","compile listed .asm file to .osx","osx {filename} {loader_adress}")
+        table.add_row("osx","compile listed .asm file to .osx","osx {filename} {loader_address}")
         table.add_row("gantt","Displays the gantt chart from the multi-level feedback queue","gantt")
         table.add_row("main_gantt","prints a gantt chart for all queues in one array","main_gantt")
         table.add_row("clearOS","Clears registers and reinstantiates main memory and loader class","clearOS")
         table.add_row("shell","Starts a new shell","shell")
         table.add_row("coredump","Prints memory and registers to coredump.txt if verbose prints to console","coredump")
         table.add_row("errordump","prints errordump to errordump.txt","errordump")
+        table.add_row("page table","prints pages assigned a PID","page_table")
         # table.add_row("","","")
         console.print(table)
         
