@@ -171,7 +171,7 @@ class CPU:
         if self.verbose:
             print(f"Binary File size is {self.b_size}")
             print(f"loader address is {self.loader_address}")
-        while self.current_instruction_address < self.b_size-self.PC:
+        while self.current_instruction_address < self.b_size:
             if self.current_instruction_address % self.memory.get_page_size()+1 == 0:
                 self.current_page = self.process_pages.pop(0) #type: ignore
                 self.reset_address=0

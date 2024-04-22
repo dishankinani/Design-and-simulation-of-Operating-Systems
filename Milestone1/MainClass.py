@@ -53,7 +53,7 @@ class VMShell:
     def load_mmu(self, filename):
         try:
             b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
-            new_cpu = CPU(self.memory, self.registers, 0, b_size, PC, self.verbose, pid=self.pid, process_pages=process_pages)
+            new_cpu = CPU(self.memory, self.registers, 0, b_size-PC, 0, self.verbose, pid=self.pid, process_pages=process_pages)
             if self.verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {PC}")
                 print(f'{filename} status set to ready')
@@ -303,6 +303,21 @@ class VMShell:
         # print("Page Table:")
         self.mmu.print_page_table()
 
+    def ps(self):
+        print(f"Free memory size = {len(self.mmu.free_pages)*self.mmu.get_page_size()}/{self.memory.size}")
+        print("Free pages")
+        print(self.mmu.free_pages)
+        # print(f"Memory in use: {}")
+        print("Pages associated with PIDs:")
+        self.mmu.print_page_table()
+
+
+    def get_page_size(self):
+        print("Page size =",self.mmu.get_page_size())
+    
+    def set_page_number(self,args):
+        self.mmu.set_page_number(args)
+
     def run_command(self, command, args):
         self.verbose = "-v" in args
         if self.verbose:
@@ -385,6 +400,8 @@ class VMShell:
             self.mmu.set_page_size(int(args[0]))
             if self.verbose:
                 print(f"Page size set to {self.memory.page_size}")
+        elif command == "set_page_number":
+            self.set_page_number(args[0])
         elif command=="setrr":
             self.quantum = int(args[0])
             magnitude = int(args[1])
@@ -396,6 +413,9 @@ class VMShell:
             self.Sched=args[0]
             if self.verbose:
                 print(f"The Chosen Algorithm is {self.Sched}")
+
+        elif command == "displaypageinfo":
+            self.ps()
 
         elif command=="execute":
             if self.Sched == "fcfs":
@@ -475,6 +495,8 @@ class VMShell:
             self.print_gantt() 
         elif command == "main_gantt":
             self.print_main_gantt() 
+        elif command == "getpagesize":
+            self.get_page_size()
         elif command == "page_table":
             self.print_page_table()      
         else:
@@ -505,7 +527,7 @@ class VMShell:
         table.add_column("Example", justify="center")
         table.add_row("verbose", "Set OS to verbose mode", "-v")
         table.add_row("load", "loads programs into memory", "load program1.osx ... programn.osx")
-        table.add_row("run", "runs programs that are loaded", "oldexecute")
+        table.add_row("run", "runs programs that are loaded", "run")
         table.add_row("setSched", "Sets the CPU scheduler to RR or MFQ", "setSched mfq")
         table.add_row("setrr", "set the quantums for the round robin, first is quantum size and second is ratio", "setrr {quantum} {ratio}")
         table.add_row("execute","Loads and runs n programs using the selected scheduler","execute program1.osx {arrival_time}...programn.osx {arrival_time}")
@@ -516,9 +538,11 @@ class VMShell:
         table.add_row("shell","Starts a new shell","shell")
         table.add_row("coredump","Prints memory and registers to coredump.txt if verbose prints to console","coredump")
         table.add_row("errordump","prints errordump to errordump.txt","errordump")
+        table.add_row("ps -proc -free","displays the state of memory, free pages, and pages associated with PIDs","displaypageinfo")
         table.add_row("page table","prints pages assigned a PID","page_table")
         table.add_row("set page size","sets the size (in bytes) of a page in  memory","set_page_size {size}")
-        
+        table.add_row("get page size","returns the size (in bytes) of a page in  memory","getpagesize")
+        table.add_row("set page number","sets the number of pages stored in virtual memory for quick access","set_page_number {args}")
         # table.add_row("","","")
         console.print(table)
         

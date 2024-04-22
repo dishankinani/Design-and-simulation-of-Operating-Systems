@@ -45,7 +45,7 @@ class mmu:
             # Read header information from the byte code file
             b_size, PC = struct.unpack('ii', file.read(8))
             file.read(4) # fetches loader address
-            #current_address=PC
+            threshold_address=0
             # Display header information
             print(f'File Size{b_size}')
             print(f'Program Counter{PC}')
@@ -59,6 +59,8 @@ class mmu:
                 
             for page in range(math.ceil((b_size-PC)/self.page_size)):
                 current_page=self.free_pages.pop(0)
+                if page==0:
+                    threshold_address=current_page*self.page_size+(b_size-PC)
                 current_address=current_page*self.page_size
                 page_number_array.append(current_page)
                 # if not pid in self.page_table:
@@ -73,7 +75,7 @@ class mmu:
                 # current_address = current_page * self.page_size
                 for i in range(current_address,current_page*self.page_size+self.page_size,6):# do a for loop that increments by 6 for each command to the end of the file    
                     print(f"Current Address {current_address}")
-                    if current_address >= b_size-PC:
+                    if current_address >= threshold_address:
                             break
                     byte = file.read(1)
                     #change byte into number for function calls and readability
@@ -241,6 +243,7 @@ class mmu:
                         current_address+=3
                         
                     elif instruction_code == 20:
+                        print('Swi executed')
                         #move immediate
                         if verbose:
                             print('SWI operation called.\n')
