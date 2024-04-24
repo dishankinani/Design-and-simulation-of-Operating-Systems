@@ -1,8 +1,8 @@
 class Memory:
-    def __init__(self, size=10000):
+    def __init__(self, size=1000):
         self.size = size
         self.memory = [0] * size
-        self.page_size = 24
+        self.page_size = 18
 
     def set_page_size(self,page_size):
         self.page_size=page_size

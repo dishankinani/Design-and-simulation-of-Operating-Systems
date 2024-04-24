@@ -22,25 +22,31 @@ class CPU:
         self.reset_address=0
         self.current_page = process_pages.pop(0) # type: ignore
         
+        
     def increment_cpu_burst(self):
         self.consecutive_cpu_bursts+=1
 
     def check_cpu_burst(self) -> int:
         return self.consecutive_cpu_bursts
-
-    def fetch(self):
+    
+    def ram_fetch(self, instruction_number):
         instruction = []
-        offset = self.current_page * self.memory.get_page_size()  # Offset for the first instruction
-        print("Memory location of instruction",self.current_instruction_address+offset )
-        for _ in range(6):  # Fetch 6 bytes individually
-            instruction.append(self.memory.read(self.current_instruction_address+offset))
-            if self.verbose:
-                print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.current_instruction_address}")
-            self.current_instruction_address+=1  # Increment PC for each byte read
-            self.reset_address+=1
-            if self.verbose:
-                print(f"After incrementing instruction address {self.current_instruction_address}" )
-        return instruction
+        # offset = 
+
+    def fetch(self,ram,i,index):
+        # instruction = []
+        # offset = self.current_page * self.memory.get_page_size()  # Offset for the first instruction
+        # print("Memory location of instruction",self.current_instruction_address+offset )
+        # for _ in range(6):  # Fetch 6 bytes individually
+        #     instruction.append(self.memory.read(self.current_instruction_address+offset))
+        #     if self.verbose:
+        #         print(f"Actual Address in memory from CPU of instructions {self.loader_address+self.current_instruction_address}")
+        #     self.current_instruction_address+=1  # Increment PC for each byte read
+        #     self.reset_address+=1
+        #     if self.verbose:
+        #         print(f"After incrementing instruction address {self.current_instruction_address}" )
+       
+        return ram.instructions[index][i*6:i*6+6]
     
     def decode(self, instruction):
         opcode = instruction[0]
@@ -167,27 +173,44 @@ class CPU:
         imm_name = f'R{imm}'
         self.registers.write(reg, imm_name)
     
-    def execute_program(self):
+    def execute_program(self,ram):
+        print("list of pages:",self.process_pages)
         if self.verbose:
             print(f"Binary File size is {self.b_size}")
             print(f"loader address is {self.loader_address}")
         while self.current_instruction_address < self.b_size:
-            if self.current_instruction_address % self.memory.get_page_size()+1 == 0:
-                self.current_page = self.process_pages.pop(0) #type: ignore
+           # if self.current_instruction_address % self.memory.get_page_size()+1 == 0:
+            try:
+                self.current_page = self.process_pages.pop(0) # type: ignore
+            except IndexError:
+                break
+            if self.current_page not in ram.pages:
+                ram.load_page(self.current_page)
                 self.reset_address=0
-            print(f"PC from CPU {self.current_instruction_address + self.loader_address}")
-            print(f"b_size from CPU {self.b_size}")
-            instruction = self.fetch()
+            print(f"Current Page {self.current_page}")
+            # print(f"PC from CPU {self.current_instruction_address + self.loader_address}")
+            # print(f"b_size from CPU {self.b_size}")
+            index = ram.pages.index(self.current_page)
+            for i in range(int(ram.page_size/6)):
+                instruction = self.fetch(ram,i,index)
+                print("instructions at index")
+                print(ram.instructions[index])
+                
+            
+                # print("value of i:", i)
+                print(instruction)
+                self.execute(instruction)
+                self.current_instruction_address+=6
+                self.registers.gantt.append("X")
+                self.registers.gantt1.append("X")
+                self.registers.ganttfcfs.append(self.pid)
+                self.registers.main_gantt.append(self.pid)
+                self.registers.increment('CLOCK')
+                
             if instruction[0] == '20':
                 #jump to IO queue
                 print('jump to IO queue todo')
-            self.execute(instruction)
-            self.registers.gantt.append("X")
-            self.registers.gantt1.append("X")
-            self.registers.ganttfcfs.append(self.pid)
-            self.registers.main_gantt.append(self.pid)
-            self.registers.increment('CLOCK')
-            
+                # self.ram_fetch(command)
         
         #self.memory.clear(self.loader_address, self.b_size+self.loader_address)
         self.registers.clear()

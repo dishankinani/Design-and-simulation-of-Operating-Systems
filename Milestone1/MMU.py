@@ -1,14 +1,14 @@
 import math
 import struct
 class mmu:
-    def __init__(self, memory, page_size=24):
+    def __init__(self, memory, page_size=18):
         self.memory = memory
         self.page_size = page_size
         self.number_of_pages=memory.size/self.page_size
         self.page_counter=0
         self.page_table = {}
         self.free_pages = [i for i in range(0, math.floor(memory.size/self.page_size))]
-        self.page_number = memory.size // self.page_size # number of pages for each program
+        self.page_number = 2
         
     
     def get_page_size(self):
@@ -71,10 +71,10 @@ class mmu:
             # file.read(PC)
             #+current_page*self.page_size
                 
-                print("Here, current page =", current_page)
+                # print("Here, current page =", current_page)
                 # current_address = current_page * self.page_size
                 for i in range(current_address,current_page*self.page_size+self.page_size,6):# do a for loop that increments by 6 for each command to the end of the file    
-                    print(f"Current Address {current_address}")
+                    # print(f"Current Address {current_address}")
                     if current_address >= threshold_address:
                             break
                     byte = file.read(1)

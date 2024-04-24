@@ -7,6 +7,7 @@ import datetime
 import subprocess
 from ProgramLoadError import ProgramLoadError
 import MMU
+from RAM import Ram
 class VMShell:
     def __init__(self):
         self.memory = Memory()
@@ -31,6 +32,7 @@ class VMShell:
         self.pid=1
         self.Sched="FCFS"
         self.mmu = MMU.mmu(self.memory)
+        self.ram = Ram(self.mmu.get_page_number(),self.mmu.get_page_size(),self.memory)
         
 
     def load_program(self, filename, arrival_time):
@@ -50,16 +52,21 @@ class VMShell:
         except Exception as e:
             self.errordump(e)
     
-    def load_mmu(self, filename):
+    def load_mmu(self, filename,i):
         try:
             b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
             new_cpu = CPU(self.memory, self.registers, 0, b_size-PC, 0, self.verbose, pid=self.pid, process_pages=process_pages)
+            if i==0:
+                for page in range(int(self.mmu.get_page_number())):
+                    self.ram.load_page(process_pages[page])
+                # process_pages.pop(page)
+            print(new_cpu.process_pages)
             if self.verbose:
                 print(f"Loaded {filename} into memory. Byte Size: {b_size}, First instructions address: {PC}")
                 print(f'{filename} status set to ready')
             #changing cpu state to ready
             new_cpu.state = 'ready'
-            self.cpus.put(new_cpu)            
+            self.cpus.put(new_cpu)
         except Exception as e:
             self.errordump(e)
 
@@ -73,7 +80,7 @@ class VMShell:
                 #print(running)
                 running.state = 'running'
                
-                running.execute_program()
+                running.execute_program(self.ram)
                 if self.verbose:
                     print('process set to running')
                     print("Program executed.")
@@ -316,7 +323,8 @@ class VMShell:
         print("Page size =",self.mmu.get_page_size())
     
     def set_page_number(self,args):
-        self.mmu.set_page_number(args)
+        self.mmu.set_page_number(int(args))
+        self.ram.number_of_pages = int(args)
 
     def run_command(self, command, args):
         self.verbose = "-v" in args
@@ -336,11 +344,13 @@ class VMShell:
                 # #FCFS scheduling
                 self.new.put(self.pid)
                 #self.print_queues()
-                self.load_mmu(filename)
+                self.load_mmu(filename,i)
                 #self.print_queues()
                 self.pid+=1
         elif command == "help":
             self.print_help()
+        elif command == "print_ram":
+            self.ram.print_ram()
         elif command == "run":
             self.run_program()
         elif command=="coredump":
@@ -398,10 +408,14 @@ class VMShell:
         elif command == "set_page_size":
             self.memory.set_page_size(int(args[0]))
             self.mmu.set_page_size(int(args[0]))
+            self.ram.page_size = int(args[0])
+            
             if self.verbose:
                 print(f"Page size set to {self.memory.page_size}")
         elif command == "set_page_number":
             self.set_page_number(args[0])
+        elif command == "page_faults":
+            print("Number of page Faults:",self.ram.page_faults)
         elif command=="setrr":
             self.quantum = int(args[0])
             magnitude = int(args[1])
