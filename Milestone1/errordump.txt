@@ -10,3 +10,27 @@ Traceback (most recent call last):
     instruction_code = ord(byte)
                        ^^^^^^^^^
 TypeError: ord() expected a character, but string of length 0 found
+
+Error Timestamp: 2024-04-23 18:26:17
+Error Dump:
+ord() expected a character, but string of length 0 found
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 55, in load_mmu
+    b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MMU.py", line 55, in load_program
+    directives_code=ord(byte)
+                    ^^^^^^^^^
+TypeError: ord() expected a character, but string of length 0 found
+
+Error Timestamp: 2024-04-23 18:26:41
+Error Dump:
+ord() expected a character, but string of length 0 found
+Traceback (most recent call last):
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MainClass.py", line 55, in load_mmu
+    b_size, PC, process_pages = self.mmu.load_program(filename, self.verbose, pid=self.pid)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\disha\OneDrive\Documents\Design and simulation of Operating Systems\Milestone1\MMU.py", line 82, in load_program
+    instruction_code = ord(byte)
+                       ^^^^^^^^^
+TypeError: ord() expected a character, but string of length 0 found
